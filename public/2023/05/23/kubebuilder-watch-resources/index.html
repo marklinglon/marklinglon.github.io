@@ -17,20 +17,20 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>hexo部署文档 | 汪茫人海</title>
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.  Quic">
+  <title>Kubebuilder Watch Rresources | 汪茫人海</title>
+  <meta name="description" content="Kubebuilder Watching Resources 我们在开发过程中，可能需要开发一个类似Deployment的资源逻辑，管理依赖资源是控制器的基础，如果不能观察它们的状态变化就不可能管理它们。这就意味着，我们需要 reconciler 能监控多个资源的变化。 NOTE: Deployment 必须知道其管理的 ReplicaSet 何时更改，ReplicaSet 必须知道其管理的 Po">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo部署文档">
-<meta property="og:url" content="http://example.com/2023/05/23/hexo/index.html">
+<meta property="og:title" content="Kubebuilder Watch Rresources">
+<meta property="og:url" content="http://example.com/2023/05/23/kubebuilder-watch-resources/index.html">
 <meta property="og:site_name" content="汪茫人海">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.  Quic">
+<meta property="og:description" content="Kubebuilder Watching Resources 我们在开发过程中，可能需要开发一个类似Deployment的资源逻辑，管理依赖资源是控制器的基础，如果不能观察它们的状态变化就不可能管理它们。这就意味着，我们需要 reconciler 能监控多个资源的变化。 NOTE: Deployment 必须知道其管理的 ReplicaSet 何时更改，ReplicaSet 必须知道其管理的 Po">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-23T02:30:45.919Z">
-<meta property="article:modified_time" content="2023-05-24T14:31:58.756Z">
+<meta property="article:published_time" content="2023-05-23T03:51:52.668Z">
+<meta property="article:modified_time" content="2023-05-23T03:52:27.292Z">
 <meta property="article:author" content="mark long">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/2023/05/23/hexo/index.html">
+  <link rel="canonical" href="http://example.com/2023/05/23/kubebuilder-watch-resources/index.html">
   
     <link rel="alternate" href="/atom.xml" title="汪茫人海" type="application/atom+xml">
   
@@ -326,14 +326,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-hexo" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-kubebuilder-watch-resources" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      hexo部署文档
+      Kubebuilder Watch Rresources
     </h1>
   
 
@@ -341,8 +341,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2023/05/23/hexo/" class="article-date">
-	  <time datetime="2023-05-23T02:30:45.919Z" itemprop="datePublished">2023-05-23</time>
+	<a href="/2023/05/23/kubebuilder-watch-resources/" class="article-date">
+	  <time datetime="2023-05-23T03:51:52.668Z" itemprop="datePublished">2023-05-23</time>
 	</a>
 </span>
         
@@ -350,28 +350,214 @@
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/05/23/hexo/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/05/23/kubebuilder-watch-resources/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start"><a class="markdownIt-Anchor" href="#quick-start"></a> Quick Start</h2>
-<h3 id="create-a-new-post"><a class="markdownIt-Anchor" href="#create-a-new-post"></a> Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server"><a class="markdownIt-Anchor" href="#run-server"></a> Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files"><a class="markdownIt-Anchor" href="#generate-static-files"></a> Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites"><a class="markdownIt-Anchor" href="#deploy-to-remote-sites"></a> Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># deploy前先删除public目录</span></span><br><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<h2 id="参考链接"><a class="markdownIt-Anchor" href="#参考链接"></a> 参考链接</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://blog.cofess.com/2017/11/01/hexo-blog-theme-pure-usage-description.html // 部署文档</span><br><span class="line">http://blog.iwwee.com/posts/hexo-optimize.html // 优化</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <p>Kubebuilder Watching Resources<br />
+我们在开发过程中，可能需要开发一个类似Deployment的资源逻辑，管理依赖资源是控制器的基础，如果不能观察它们的状态变化就不可能管理它们。这就意味着，我们需要 reconciler 能监控多个资源的变化。</p>
+<p>NOTE: Deployment 必须知道其管理的 ReplicaSet 何时更改，ReplicaSet 必须知道其管理的 Pod 何时被删除，或者从健康变为不健康等。</p>
+<p>控制器运行时库为管理和监视资源提供了多种方式。这包括从简单而明显的用例（例如查看由控制器创建和管理的资源）到更独特和更高级的用例。</p>
+<p>•控制器创建和管理的资源 (Watching Operator Managed Resources)<br />
+•外部管理的资源 (Watching Externally Managed Resources)</p>
+<p>背景<br />
+以 Tcaplus 资源为例，Tcaplus 资源通过 ConfigMap（proto 文件）来创建表格。当 ConfigMap 发生变化时自动更新表格，下面例子不实际调用腾讯云API，只要验证接收到事件请求即可。</p>
+<p>NOTE: TcaplusDB 是腾讯出品的分布式NoSQL数据库。官方API文档：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/596/39648%E3%80%82">https://cloud.tencent.com/document/product/596/39648。</a></p>
+<p>控制器创建和管理的资源<br />
+资源定义 (Defined Tcaplus Resources)<br />
+api/v1/tcaplus_types.go</p>
+<p>type TcaplusSpec struct {<br />
+Checksum string <code>json:&quot;checksum,omitempty&quot;</code><br />
+ConfigMapTemplate ConfigMapTemplate <code>json:&quot;configMapTemplate,omitempty&quot;</code><br />
+}</p>
+<p>type ConfigMapTemplate struct {<br />
+Name string <code>json:&quot;name,omitempty&quot;</code><br />
+Data map[string]string <code>json:&quot;data,omitempty&quot;</code><br />
+}</p>
+<p>控制器逻辑 (Manage the Owned Resource)<br />
+controllers/tcaplus_controller.go<br />
+当 tcaplus CR 创建时根据 ConfigMapTemplate 创建附属的 ConfigMap 资源并设置属主关系。</p>
+<p>•Reconcile 方法：根据模版创建 ConfigMap 并设置属主关系<br />
+•SetupWithManager 方法：For 方法之后调用 Owns 方法func (r *TcaplusReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {<br />
+logger := log.FromContext(ctx)<br />
+<a target="_blank" rel="noopener" href="http://logger.Info">logger.Info</a>(“reconciling”)<br />
+tcaplus := &amp;examplev1.Tcaplus{}<br />
+if err := r.Get(ctx, req.NamespacedName, tcaplus); err != nil {<br />
+return ctrl.Result{}, client.IgnoreNotFound(err)<br />
+}<br />
+configMap := &amp;corev1.ConfigMap{}<br />
+<a target="_blank" rel="noopener" href="http://configMap.Name">configMap.Name</a> = <a target="_blank" rel="noopener" href="http://tcaplus.Spec.ConfigMapTemplate.Name">tcaplus.Spec.ConfigMapTemplate.Name</a><br />
+configMap.Namespace = tcaplus.Namespace<br />
+configMap.Data = tcaplus.Spec.ConfigMapTemplate.Data</p>
+<p>if err := controllerutil.SetControllerReference(tcaplus, configMap, r.Scheme); err != nil {<br />
+logger.Error(err, “get configmap failed”, “configmap”, <a target="_blank" rel="noopener" href="http://configMap.Name">configMap.Name</a>)<br />
+return ctrl.Result{}, err<br />
+}<br />
+foundConfigMap := &amp;corev1.ConfigMap{}<br />
+err := r.Get(ctx, types.NamespacedName{Name: <a target="_blank" rel="noopener" href="http://configMap.Name">configMap.Name</a>, Namespace: tcaplus.Namespace}, foundConfigMap)<br />
+if err != nil &amp;&amp; errors.IsNotFound(err) {<br />
+logger.V(1).Info(“creating configmap”, “configmap”, <a target="_blank" rel="noopener" href="http://configMap.Name">configMap.Name</a>)<br />
+err = r.Create(ctx, configMap)<br />
+}<br />
+return ctrl.Result{}, nil<br />
+} // SetupWithManager sets up the controller with the Manager.<br />
+func (r *TcaplusReconciler) SetupWithManager(mgr ctrl.Manager) error {<br />
+return ctrl.NewControllerManagedBy(mgr).<br />
+For(&amp;examplev1.Tcaplus{}).<br />
+Owns(&amp;corev1.ConfigMap{}).<br />
+Complete®<br />
+}</p>
+<p>NOTE：同一控制器创建的资源才可以设置属主关系，不然会提示：already owned by another controller。<br />
+测试<br />
+config/samples/example_v1_tcaplus.yaml</p>
+<p>apiVersion: <a target="_blank" rel="noopener" href="http://example.blazehu.com/v1">example.blazehu.com/v1</a><br />
+kind: Tcaplus<br />
+metadata:<br />
+name: tcaplus-sample<br />
+spec:<br />
+checksum: “123”<br />
+configMapTemplate:<br />
+name: “tcaplus-configmap-example”<br />
+data:<br />
+demo.proto: |<br />
+syntax = “proto3”;<br />
+package example;<br />
+message Example {<br />
+uint32 a = 1;<br />
+uint32 b = 2;<br />
+uint32 c = 3;<br />
+}</p>
+<p>使用上述配置文件创建 tcaplus 资源。创建结果：</p>
+<p>BLAZEHU-MB2:samples $ k get tcaplus<br />
+NAME AGE<br />
+tcaplus-sample 19m<br />
+BLAZEHU-MB2:samples $ k get configmap<br />
+NAME DATA AGE<br />
+tcaplus-configmap-example 1 19m</p>
+<p>可以查看 tcaplus-configmap-example 的属主关系：</p>
+<p>apiVersion: v1<br />
+data:<br />
+demo.proto: |<br />
+syntax = “proto3”;<br />
+package example;<br />
+message Example {<br />
+uint32 a = 1;<br />
+uint32 b = 2;<br />
+}<br />
+kind: ConfigMap<br />
+metadata:<br />
+creationTimestamp: “2022-07-07T09:02:43Z”<br />
+name: tcaplus-configmap-example<br />
+namespace: default<br />
+ownerReferences:</p>
+<ul>
+<li>apiVersion: <a target="_blank" rel="noopener" href="http://example.blazehu.com/v1">example.blazehu.com/v1</a><br />
+blockOwnerDeletion: true<br />
+controller: true<br />
+kind: Tcaplus<br />
+name: tcaplus-sample<br />
+uid: 7c50f2e1-0e37-4aa0-bf49-c2d410d6153e<br />
+resourceVersion: “6837330713”<br />
+selfLink: /api/v1/namespaces/default/configmaps/tcaplus-configmap-example<br />
+uid: 6c29f90b-0e51-4d9f-a6a8-cfb6906ed1b0</li>
+</ul>
+<p>手动修改 tcaplus-sample 和 tcaplus-configmap-example 后查看控制器日志发现能正常观察 CR 和 ConfigMap 的变化了。</p>
+<p>外部管理的资源<br />
+资源定义 (Defined Tcaplus Resources)<br />
+api/v1/tcaplus_types.go</p>
+<p>type TcaplusSpec struct {<br />
+Checksum string <code>json:&quot;checksum,omitempty&quot;</code><br />
+ConfigMapRef ConfigMapReference <code>json:&quot;configMapRef,omitempty&quot;</code><br />
+}</p>
+<p>type ConfigMapReference struct {<br />
+Name string <code>json:&quot;name,omitempty&quot;</code><br />
+}</p>
+<p>控制器逻辑 (Manage the Owned Resource)<br />
+controllers/tcaplus_controller.go<br />
+For 方法之后调用 Watches 方法就可以监听对应资源的事件，但是会监听集群里所有相关资源的事件，所以这里我们自定义事件处理方法来过滤出我们关注的资源的事件。</p>
+<p>•通过 EnqueueRequestsFromMapFunc 创建一个事件处理方法，该方法通过 FieldSelector 在 ConfigMap 的事件中过滤出跟 tcaplus CR 相关联的事件。<br />
+•使用 FieldSelector 时我们需要建立对应的索引，使用 mgr.GetFieldIndexer().IndexField() 创建。const (<br />
+ConfigMapField = “.spec.configMapRef.name”<br />
+) func (r *TcaplusReconciler) findObjectsForConfigMap(configMap client.Object) []reconcile.Request {<br />
+attachedTcaplusList := &amp;examplev1.TcaplusList{}<br />
+listOps := &amp;client.ListOptions{<br />
+FieldSelector: fields.OneTermEqualSelector(ConfigMapField, configMap.GetName()),<br />
+Namespace: configMap.GetNamespace(),<br />
+}<br />
+err := r.List(context.TODO(), attachedTcaplusList, listOps)<br />
+if err != nil {<br />
+return []reconcile.Request{}<br />
+}<br />
+requests := make([]reconcile.Request, len(attachedTcaplusList.Items))<br />
+for i, item := range attachedTcaplusList.Items {<br />
+requests[i] = reconcile.Request{<br />
+NamespacedName: types.NamespacedName{<br />
+Name: item.GetName(),<br />
+Namespace: item.GetNamespace(),<br />
+},<br />
+}<br />
+}<br />
+return requests<br />
+} // SetupWithManager sets up the controller with the Manager.<br />
+func (r *TcaplusReconciler) SetupWithManager(mgr ctrl.Manager) error {<br />
+if err := mgr.GetFieldIndexer().IndexField(context.Background(), &amp;examplev1.Tcaplus{}, ConfigMapField, func(rawObj client.Object) []string {<br />
+tcaplus := rawObj.(*examplev1.Tcaplus)<br />
+if <a target="_blank" rel="noopener" href="http://tcaplus.Spec.ConfigMapRef.Name">tcaplus.Spec.ConfigMapRef.Name</a> == “” {<br />
+return nil<br />
+}<br />
+return []string{<a target="_blank" rel="noopener" href="http://tcaplus.Spec.ConfigMapRef.Name">tcaplus.Spec.ConfigMapRef.Name</a>}<br />
+}); err != nil {<br />
+return err<br />
+}<br />
+return ctrl.NewControllerManagedBy(mgr).<br />
+For(&amp;examplev1.Tcaplus{}).<br />
+Watches(<br />
+&amp;source.Kind{Type: &amp;corev1.ConfigMap{}},<br />
+handler.EnqueueRequestsFromMapFunc(r.findObjectsForConfigMap),<br />
+builder.WithPredicates(predicate.ResourceVersionChangedPredicate{}),<br />
+).<br />
+Complete®<br />
+} 上面 ConfigMap 监听使用默认的 Predicates 过滤器 ResourceVersionChangedPredicate，查看源码定义就是说当 resource version 变化时事件会入队。// ResourceVersionChangedPredicate implements a default update predicate function on resource version change.<br />
+type ResourceVersionChangedPredicate struct {<br />
+Funcs<br />
+}</p>
+<p>NOTE: 我们也可以自己定一个变更过滤器 Predicate。也可以通过 WithEventFilter 来针对监听的所有资源过滤。<br />
+测试<br />
+config/samples/example_v1_tcaplus.yaml</p>
+<p>apiVersion: v1<br />
+kind: ConfigMap<br />
+metadata:<br />
+name: tcaplus-configmap-example<br />
+data:<br />
+demo.proto: |<br />
+syntax = “proto3”;<br />
+package example;<br />
+message Example {<br />
+uint32 a = 1;<br />
+uint32 b = 2;<br />
+uint32 c = 3;<br />
+}</p>
+<hr />
+<p>apiVersion: <a target="_blank" rel="noopener" href="http://example.blazehu.com/v1">example.blazehu.com/v1</a><br />
+kind: Tcaplus<br />
+metadata:<br />
+name: tcaplus-sample<br />
+spec:<br />
+checksum: “123”<br />
+configMapRef:<br />
+name: “tcaplus-configmap-example”</p>
+<p>使用上述配置创建完毕后，手动修改 tcaplus-sample 和 tcaplus-configmap-example 查看控制器日志发现同样能正常观察 CR 和 ConfigMap 的变化。</p>
+<p>NOTE: 查看 tcaplus-configmap-example 可以看到没有和 tcaplus 的属主关系。</p>
+<p>总结<br />
+•EventHandler 可以在 watch 特定资源时设置该资源的事件监听规则。<br />
+•WithEventFilter 配置变更过滤器，可以针对 watch 的所有资源，统一地设置事件监听规则。<br />
+•Owns 源码分析可以发现 Owns 相当于调用 Watches(&amp;source.Kind{Type: <ForType-forInput>}, &amp;handler.EnqueueRequestForOwner{OwnerType: apiType, IsController: true})。</p>
+<p>参考文档<br />
+•<a target="_blank" rel="noopener" href="https://www.kubebuilder.io/reference/watching-resources.html">https://www.kubebuilder.io/reference/watching-resources.html</a><br />
+•<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/owners-dependents/">https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/owners-dependents/</a><br />
+•<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020359577">https://segmentfault.com/a/1190000020359577</a></p>
 
       
     </div>
@@ -381,7 +567,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2023/05/23/hexo/" title="hexo部署文档" target="_blank" rel="external">http://example.com/2023/05/23/hexo/</a>
+      <a href="http://example.com/2023/05/23/kubebuilder-watch-resources/" title="Kubebuilder Watch Rresources" target="_blank" rel="external">http://example.com/2023/05/23/kubebuilder-watch-resources/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -430,9 +616,13 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2023/05/23/kubebuilder-webhook/" title="Kubebuilder Webhook 开发之创建 TLS 证书"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2023/05/23/kubebuilder-Admission-Webhooks/" title="Kubebuilder Admission Webhooks"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
+    
+    <li class="next">
+      <a href="/2023/05/23/kubebuilder-best-practices/" title="Kubebuilder Best Practices"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
     
     
   </ul>

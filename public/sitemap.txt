@@ -1,4 +1,9 @@
+http://example.com/2023/05/23/kubebuilder-best-practices/
 http://example.com/2023/05/23/hexo/
+http://example.com/2023/05/23/kubebuilder-Admission-Webhooks/
+http://example.com/2023/05/23/alertmanager/
+http://example.com/2023/05/23/kubebuilder-watch-resources/
+http://example.com/2023/05/23/kubebuilder-webhook/
 http://example.com/tags/index.html
 http://example.com/about/index.html
 http://example.com/books/index.html

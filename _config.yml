@@ -108,3 +108,19 @@ deploy:
   message: init
   token: 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
 
+
+# hexo-renderer-markdown-it-plus
+markdown_it_plus:
+  highlight: true
+  html: true
+  xhtmlOut: true
+  breaks: true
+  langPrefix:
+  linkify: true
+  typographer:
+  quotes: “”‘’
+  pre_class: hljs
+  plugins:
+    - plugin:
+        name: markdown-it-katex
+        enable: true

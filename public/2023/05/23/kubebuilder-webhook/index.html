@@ -17,20 +17,20 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>hexo部署文档 | 汪茫人海</title>
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.  Quic">
+  <title>Kubebuilder Webhook 开发之创建 TLS 证书 | 汪茫人海</title>
+  <meta name="description" content="Kubebuilder Webhook 开发之创建 TLS 证书 在编写一个准入 Webhook 服务时，需要配置相关证书，k8s 提供了 api 用于对用户自主创建的证书进行认证签发。以下部分演示为 Webhook 服务创建 TLS 证书。 创建 TLS 证书 创建你的证书 通过运行以下命令生成私钥: cat &lt;&lt;EOF | cfssl genkey - | cfssljson -b">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo部署文档">
-<meta property="og:url" content="http://example.com/2023/05/23/hexo/index.html">
+<meta property="og:title" content="Kubebuilder Webhook 开发之创建 TLS 证书">
+<meta property="og:url" content="http://example.com/2023/05/23/kubebuilder-webhook/index.html">
 <meta property="og:site_name" content="汪茫人海">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.  Quic">
+<meta property="og:description" content="Kubebuilder Webhook 开发之创建 TLS 证书 在编写一个准入 Webhook 服务时，需要配置相关证书，k8s 提供了 api 用于对用户自主创建的证书进行认证签发。以下部分演示为 Webhook 服务创建 TLS 证书。 创建 TLS 证书 创建你的证书 通过运行以下命令生成私钥: cat &lt;&lt;EOF | cfssl genkey - | cfssljson -b">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-05-23T02:30:45.919Z">
-<meta property="article:modified_time" content="2023-05-24T14:31:58.756Z">
+<meta property="article:published_time" content="2023-05-23T03:35:30.332Z">
+<meta property="article:modified_time" content="2023-05-23T03:46:40.746Z">
 <meta property="article:author" content="mark long">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/2023/05/23/hexo/index.html">
+  <link rel="canonical" href="http://example.com/2023/05/23/kubebuilder-webhook/index.html">
   
     <link rel="alternate" href="/atom.xml" title="汪茫人海" type="application/atom+xml">
   
@@ -326,14 +326,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-hexo" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-kubebuilder-webhook" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      hexo部署文档
+      Kubebuilder Webhook 开发之创建 TLS 证书
     </h1>
   
 
@@ -341,8 +341,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2023/05/23/hexo/" class="article-date">
-	  <time datetime="2023-05-23T02:30:45.919Z" itemprop="datePublished">2023-05-23</time>
+	<a href="/2023/05/23/kubebuilder-webhook/" class="article-date">
+	  <time datetime="2023-05-23T03:35:30.332Z" itemprop="datePublished">2023-05-23</time>
 	</a>
 </span>
         
@@ -350,28 +350,169 @@
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/05/23/hexo/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/05/23/kubebuilder-webhook/#comments" class="article-comment-link">评论</a></span>
         
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start"><a class="markdownIt-Anchor" href="#quick-start"></a> Quick Start</h2>
-<h3 id="create-a-new-post"><a class="markdownIt-Anchor" href="#create-a-new-post"></a> Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server"><a class="markdownIt-Anchor" href="#run-server"></a> Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files"><a class="markdownIt-Anchor" href="#generate-static-files"></a> Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites"><a class="markdownIt-Anchor" href="#deploy-to-remote-sites"></a> Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># deploy前先删除public目录</span></span><br><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<h2 id="参考链接"><a class="markdownIt-Anchor" href="#参考链接"></a> 参考链接</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://blog.cofess.com/2017/11/01/hexo-blog-theme-pure-usage-description.html // 部署文档</span><br><span class="line">http://blog.iwwee.com/posts/hexo-optimize.html // 优化</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+        <p>Kubebuilder Webhook 开发之创建 TLS 证书<br />
+在编写一个准入 Webhook 服务时，需要配置相关证书，k8s 提供了 api 用于对用户自主创建的证书进行认证签发。以下部分演示为 Webhook 服务创建 TLS 证书。</p>
+<p>创建 TLS 证书<br />
+创建你的证书<br />
+通过运行以下命令生成私钥:</p>
+<p>cat &lt;&lt;EOF | cfssl genkey - | cfssljson -bare server<br />
+{<br />
+“hosts”: [<br />
+“my-svc.my-namespace.svc.cluster.local”,<br />
+“my-pod.my-namespace.pod.cluster.local”,<br />
+“192.0.2.24”,<br />
+“10.0.34.2”<br />
+],<br />
+“CN”: “my-pod.my-namespace.pod.cluster.local”,<br />
+“key”: {<br />
+“algo”: “ecdsa”,<br />
+“size”: 256<br />
+}<br />
+}<br />
+EOF</p>
+<p>此命令生成两个文件；它生成包含 PEM 编码 PKCS#10 证书请求的 server.csr， 以及 PEM 编码密钥的 server-key.pem，用于待生成的证书。</p>
+<p>创建证书签名请求（CSR）<br />
+cat &lt;&lt;EOF | kubectl apply -f -<br />
+apiVersion: <a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1beta1">certificates.k8s.io/v1beta1</a><br />
+kind: CertificateSigningRequest<br />
+metadata:<br />
+name: example<br />
+spec:<br />
+request: $(cat server.csr | base64 | tr -d ‘\n’)<br />
+usages:</p>
+<p>•digital signature<br />
+•key encipherment<br />
+•server auth<br />
+EOF</p>
+<p>你能看到的输出类似于：</p>
+<p><a target="_blank" rel="noopener" href="http://certificatesigningrequest.certificates.k8s.io/example">certificatesigningrequest.certificates.k8s.io/example</a> created</p>
+<p>Warning: <a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1beta1">certificates.k8s.io/v1beta1</a> CertificateSigningRequest is deprecated in v1.19+, unavailable in v1.22+; use <a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1">certificates.k8s.io/v1</a> CertificateSigningRequest</p>
+<p>CSR 处于 Pending 状态。执行下面的命令你将可以看到：</p>
+<p>kubectl get csr</p>
+<p>NAME AGE SIGNERNAME REQUESTOR CONDITION<br />
+example 17s <a target="_blank" rel="noopener" href="http://kubernetes.io/legacy-unknown">kubernetes.io/legacy-unknown</a> 100015926370-1650441195 Pending</p>
+<p>批准证书签名请求（CSR）<br />
+kubectl certificate approve example</p>
+<p><a target="_blank" rel="noopener" href="http://certificatesigningrequest.certificates.k8s.io/example">certificatesigningrequest.certificates.k8s.io/example</a> approved</p>
+<p>你现在应该能看到如下输出：</p>
+<p>kubectl get csr</p>
+<p>NAME AGE SIGNERNAME REQUESTOR CONDITION<br />
+example 5m4s <a target="_blank" rel="noopener" href="http://kubernetes.io/legacy-unknown">kubernetes.io/legacy-unknown</a> 100015926370-1650441195 Approved,Issued</p>
+<p>下载证书并使用它<br />
+kubectl get csr example -o jsonpath=‘{.status.certificate}’ | base64 --decode &gt; server.crt</p>
+<p>现在你可以将 server.crt 和 server-key.pem 作为你的服务的 https 认证了。</p>
+<p>例如 kubebuilder 中使用 TLS 证书，将 server.crt 和 server-key.pem 放在 cert 目录中并修改名称为 tls.crt 和 tls.key，然后指定证书目录：</p>
+<p>mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{<br />
+Scheme: scheme,<br />
+MetricsBindAddress: metricsAddr,<br />
+Port: 9443,<br />
+HealthProbeBindAddress: probeAddr,<br />
+LeaderElection: enableLeaderElection,<br />
+LeaderElectionID: “<a target="_blank" rel="noopener" href="http://27e1b0af.blazehu.com">27e1b0af.blazehu.com</a>”,<br />
+CertDir: “./cert/”,<br />
+})</p>
+<p>从 v1beta1 迁移到 v1<br />
+上述例子使用 <a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1beta1">certificates.k8s.io/v1beta1</a> API 版本的 CertificateSigningRequest 不在 v1.22 版本中继续提供。官方迁移指南点这里。 我们可以使用 <a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1">certificates.k8s.io/v1</a> API 版本，此 API 从 v1.19 版本开始可用。</p>
+<p>•<a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1">certificates.k8s.io/v1</a> 中需要额外注意的变更：<br />
+•对于请求证书的 API 客户端而言：<br />
+•spec.signerName 现在变成必需字段（参阅 已知的 Kubernetes 签署者）， 并且通过 <a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1">certificates.k8s.io/v1</a> API 不可以创建签署者为 <a target="_blank" rel="noopener" href="http://kubernetes.io/legacy-unknown">kubernetes.io/legacy-unknown</a> 的请求<br />
+•spec.usages 现在变成必需字段，其中不可以包含重复的字符串值， 并且只能包含已知的用法字符串</p>
+<p>创建你的证书<br />
+通过运行以下命令生成私钥:</p>
+<p>cat &lt;&lt;EOF | cfssl genkey - | cfssljson -bare server<br />
+{<br />
+“hosts”: [<br />
+“my-svc.my-namespace.svc.cluster.local”,<br />
+“my-pod.my-namespace.pod.cluster.local”,<br />
+“192.0.2.24”,<br />
+“10.0.34.2”<br />
+],<br />
+“CN”: “my-pod.my-namespace.pod.cluster.local”,<br />
+“key”: {<br />
+“algo”: “ecdsa”,<br />
+“size”: 256<br />
+}<br />
+}<br />
+EOF</p>
+<p>创建证书签名请求（CSR）<br />
+这里 csr signerName 不能是 <a target="_blank" rel="noopener" href="http://kubernetes.io/legacy-unknown%EF%BC%8C%E6%BC%94%E7%A4%BA%E6%88%91%E4%BB%AC%E9%9A%8F%E4%BE%BF%E6%8C%87%E5%AE%9A%E4%B8%80%E4%B8%AA%E4%B8%BA">kubernetes.io/legacy-unknown，演示我们随便指定一个为</a> <a href="http://example.com/serving%EF%BC%8Cv1beta1">example.com/serving，v1beta1</a> 版本默认是 <a target="_blank" rel="noopener" href="http://kubernetes.io/legacy-unknown%E3%80%82">kubernetes.io/legacy-unknown。</a></p>
+<p>cat &lt;&lt;EOF | kubectl apply -f -<br />
+apiVersion: <a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1">certificates.k8s.io/v1</a><br />
+kind: CertificateSigningRequest<br />
+metadata:<br />
+name: example<br />
+spec:<br />
+request: $(cat server.csr | base64 | tr -d ‘\n’)<br />
+signerName: <a href="http://example.com/serving">example.com/serving</a><br />
+usages:</p>
+<p>•digital signature<br />
+•key encipherment<br />
+•server auth<br />
+EOF</p>
+<p>批准证书签名请求（CSR）<br />
+kubectl certificate approve example</p>
+<p><a target="_blank" rel="noopener" href="http://certificatesigningrequest.certificates.k8s.io/example">certificatesigningrequest.certificates.k8s.io/example</a> approved</p>
+<p>你现在应该能看到如下输出：</p>
+<p>kubectl get csr</p>
+<p>NAME AGE SIGNERNAME REQUESTOR CONDITION<br />
+example 11s <a href="http://example.com/serving">example.com/serving</a> 100015926370-1650441195 Approved</p>
+<p>这里可以看到证书请求已被批准，但是没有自动签名，正在等待请求的签名者对其签名。</p>
+<p>签名证书签名请求（CSR）<br />
+我们扮演证书签署者的角色，颁发证书并将其上传到 API 服务器。</p>
+<p>创建证书颁发机构<br />
+通过运行以下命令创建签名证书:</p>
+<p>cat &lt;&lt;EOF | cfssl gencert -initca - | cfssljson -bare ca<br />
+{<br />
+“CN”: “<a href="http://example.com/serving">example.com/serving</a>”,<br />
+“key”: {<br />
+“algo”: “rsa”,<br />
+“size”: 2048<br />
+}<br />
+}<br />
+EOF</p>
+<p>这会产生一个证书颁发机构密钥文件（ca-key.pem）和证书（ca.pem）。</p>
+<p>颁发证书<br />
+创建文件 server-signing-config.json 内容如下：</p>
+<p>{<br />
+“signing”: {<br />
+“default”: {<br />
+“usages”: [<br />
+“digital signature”,<br />
+“key encipherment”,<br />
+“server auth”<br />
+],<br />
+“expiry”: “876000h”,<br />
+“ca_constraint”: {<br />
+“is_ca”: false<br />
+}<br />
+}<br />
+}<br />
+}</p>
+<p>使用 server-signing-config.json 签名配置、证书颁发机构密钥文件和证书来签署证书请求：</p>
+<p>kubectl get csr example -o jsonpath=‘{.spec.request}’ | <br />
+base64 --decode | <br />
+cfssl sign -ca ca.pem -ca-key ca-key.pem -config server-signing-config.json - | <br />
+cfssljson -bare ca-signed-server</p>
+<p>这会生成一个签名的服务证书文件，ca-signed-server.pem。</p>
+<p>上传签名证书<br />
+kubectl get csr example -o json | <br />
+jq ‘.status.certificate = &quot;’$(base64 ca-signed-server.pem | tr -d ‘\n’)‘&quot;’ | <br />
+kubectl replace --raw /apis/certificates.k8s.io/v1/certificatesigningrequests/example/status -f -</p>
+<p>批准 CSR 并上传签名证书后，你现在应该能看到如下输出：</p>
+<p>kubectl get csr</p>
+<p>NAME AGE SIGNERNAME REQUESTOR CONDITION<br />
+example 10m <a href="http://example.com/serving">example.com/serving</a> 100015926370-1650441195 Approved,Issued</p>
+<p>这是你可以正常下载证书并使用它了。</p>
+<p>参考文档<br />
+•<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/">https://kubernetes.io/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/</a><br />
+•<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/#configuring-your-cluster-to-provide-signing">https://kubernetes.io/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/#configuring-your-cluster-to-provide-signing</a><br />
+•<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/reference/using-api/deprecation-guide/">https://kubernetes.io/zh-cn/docs/reference/using-api/deprecation-guide/</a></p>
 
       
     </div>
@@ -381,7 +522,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2023/05/23/hexo/" title="hexo部署文档" target="_blank" rel="external">http://example.com/2023/05/23/hexo/</a>
+      <a href="http://example.com/2023/05/23/kubebuilder-webhook/" title="Kubebuilder Webhook 开发之创建 TLS 证书" target="_blank" rel="external">http://example.com/2023/05/23/kubebuilder-webhook/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -430,9 +571,13 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2023/05/23/kubebuilder-webhook/" title="Kubebuilder Webhook 开发之创建 TLS 证书"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2023/05/23/kubebuilder-best-practices/" title="Kubebuilder Best Practices"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
+    
+    <li class="next">
+      <a href="/2023/05/23/hexo/" title="hexo部署文档"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
     
     
   </ul>

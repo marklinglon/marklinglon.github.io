@@ -29,19 +29,21 @@ Kubebuilder Admission Webhooks
 Webhook Admission 属于同步调用，需要用户部署自己的 webhook server，创建自定义的配置资源对象： ValidatingWebhookConfiguration 或 MutatingWebhookConfiguration。下面使用 kubebuilder 开发一个简单的 demo。
 
 6.1 创建项目
+```
 kubebuilder init --domain blazehu.com --owner "blazehu" --repo blazehu.com/kubegame
+```
 
 提示： 这里通过 kubebuilder v3 创建的话，在 config 目录下会缺少 certmanager、webhook 目录以及 default/manager_webhook_patch.yml 和 webhookcainjection_patch.yaml 文件。可以通过从v2生成拷贝过来进行修改。
 
 6.2 创建控制器
 这里只需要创建一个控制器
-
+```
 kubebuilder create api --group svc --version v1 --kind App
-
+```
 6.3 创建 webhook
 Implement Your Handler
 新增 mutatingwebhook.go & validatingwebhook.go 文件
-
+```
 // mutatingwebhook.go
 package controllers
 
@@ -142,19 +144,19 @@ func (v *KubeGameValidator) InjectDecoder(d *admission.Decoder) error {
 v.decoder = d
 return nil
 }
-
+```
 注意：因为上述逻辑需要services权限，所以我们在控制器里需要添加如下内容 //+kubebuilder:rbac:groups="",resources=services,verbs=get;list;watch;create;update;patch;delete 用于生成 rbac manifests。
 
 Register Your Handler
 修改 main.go ，注册我们的 webhook handler
-
+```
 setupLog.Info("setting up webhook server")
 hookServer := mgr.GetWebhookServer()
 
 setupLog.Info("registering webhooks to the webhook server")
 hookServer.Register("/mutate-v1-svc", &webhook.Admission{Handler: &controllers.KubeGameAnnotator{Client: mgr.GetClient()}})
 hookServer.Register("/validate-v1-svc", &webhook.Admission{Handler: &controllers.KubeGameValidator{Client: mgr.GetClient()}})
-
+```
 提示： 这里注册的path（例如 validate-v1-sv）路径需要和 validatingwebhook.go 、mutatingwebhook.go 文件里的 CRD validation 匹配，不然 kustomize 生成出来的 webhook yaml 文件不对。
 
 本地测试
@@ -163,7 +165,7 @@ make run 会报如下错误，是因为没有证书导致，需要配置证书�
 1.646924212701068e+09 ERROR setup problem running manager {"error": "open /var/folders/67/375276sx6hv0nln1whwm5syh0000gq/T/k8s-webhook-server/serving-certs/tls.crt: no such file or directory"}
 
 我本地指定证书目录：
-
+```
 mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
 Scheme: scheme,
 MetricsBindAddress: metricsAddr,
@@ -173,7 +175,7 @@ LeaderElection: enableLeaderElection,
 LeaderElectionID: "27e1b0af.blazehu.com",
 CertDir: "./cert/",
 })
-
+```
 重新启动发现恢复正常
 
 提示： run controller-gen rbac:roleName=manager-role crd webhook paths=./... output:crd:artifacts:config=config/crd/bases -w to see all available markers, or controller-gen rbac:roleName=manager-role crd webhook paths=./... output:crd:artifacts:config=config/crd/bases -h for usage
@@ -182,7 +184,7 @@ CertDir: "./cert/",
 7.1 部署 cert manager
 建议使用 certmanager 为 webhook 服务器提供证书。其他解决方案也有效，只要它们将证书放在所需的位置。安装文档点这里
 通过如下方式注入 caBundle :
-
+```
 # This patch add annotation to admission webhook config and
 # the variables $(CERTIFICATE_NAMESPACE) and $(CERTIFICATE_NAME) will be substituted by kustomize.
 apiVersion: admissionregistration.k8s.io/v1
@@ -198,23 +200,23 @@ metadata:
 name: validating-webhook-configuration
 annotations:
 cert-manager.io/inject-ca-from: $(CERTIFICATE_NAMESPACE)/$(CERTIFICATE_NAME)
-
+```
 7.2 构建镜像
 •镜像替换：default/manager_auth_proxy_patch.yaml 文件中的 gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0 （网络慢）
 •Dockerfile 去掉 go mod download，直接使用本地 vendor 构建 （网络慢）
 •Dockerfile 去掉 COPY api/ api/， 因为没有创建 Resource
 •去掉 main.go 文件中配置的证书路径
-
+```
 make docker-build IMG=xxxx
 make docker-push IMG=xxxx
-
+```
 7.3 修改模版，然后部署
 •修改 config/default/kustomization.yaml ， 将 webhook、certmanager 相关的注释去掉。
 •修改 config/crd/kustomization.yaml ，将 webhook、certmanager 相关的注释去掉。
 •修改 config/default/kustomization.yaml ， 将 crd 相关的给注释掉。
-
+```
 make deploy IMG=xxxx
-
+```
 部署成功：
 
 查看控制器日志：

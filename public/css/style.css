@@ -142,6 +142,7 @@ hr {
 
 pre {
   overflow: auto;
+  background-color: #f1f1f1;
 }
 
 code,
@@ -539,7 +540,6 @@ mark,
 }
 
 .text-muted {
-  color: #777777 !important;
 }
 
 .text-primary {
@@ -1977,7 +1977,7 @@ tbody.collapse.in {
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  background-color: #eeeeee;
+  background-color: #0ac197;
 }
 
 .nav > li.disabled > a {
@@ -5074,6 +5074,7 @@ table table {
   -webkit-font-smoothing: antialiased;
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
+  color:white;
 }
 
 .icon-diandian:before {
@@ -5527,12 +5528,13 @@ pre .js .function {
 
 pre,
 .highlight {
-  background: #fafafa;
+  background: rgb(64, 63, 63);
   margin: 10px 0;
   padding: 15px 10px;
   overflow: auto;
   font-size: 13px;
-  color: #4d4d4c;
+  font-weight: 200;
+  color: white;
   line-height: 1.5;
 }
 
@@ -5649,7 +5651,8 @@ pre code {
 /* Hide for mobile, show later */
 
 .header {
-  background-color: #7de8db;
+  background: linear-gradient(to right,#08a283 0,#0ac29d 80%,#0ac29d 100%);
+  color: white;
 }
 
 .sidebar {
@@ -5743,6 +5746,8 @@ body.no-sidebar .sidebar {
 
 .main-nav > li .menu-title {
   margin-left: 15px;
+  color: white;
+  
 }
 
 .main-nav > .active a,
@@ -5790,8 +5795,8 @@ body.no-sidebar .sidebar {
 
 .sidebar-form {
   border-radius: 3px;
-  border: 1px solid #eee;
   margin: 0 15px 15px 15px;
+  background-color: rgba(0,0,0,.2);
 }
 
 .sidebar-form input[type="text"],
@@ -5921,7 +5926,7 @@ body.no-sidebar .sidebar {
 
 .main .article-meta {
   font-size: 13px;
-  color: #999;
+  color: rgb(252, 248, 248);
 }
 
 .main .article-meta a {
@@ -6157,7 +6162,7 @@ body.no-sidebar .sidebar {
  */
 
 .footer {
-  color: #999;
+  color: white;
 }
 
 .footer .copyright {
@@ -6165,7 +6170,7 @@ body.no-sidebar .sidebar {
 }
 
 .footer .copyright a {
-  color: #999;
+  color: white;
   text-decoration: none;
 }
 
@@ -7170,7 +7175,8 @@ body.okayNav-loaded {
 .theme-blue .footer a,
 .theme-green .footer a,
 .theme-purple .footer a {
-  color: rgba(255, 255, 255, 0.75);
+  /* color: rgba(255, 255, 255, 0.75); */
+  color: white;
 }
 
 .theme-black .header a:focus,
@@ -7817,6 +7823,7 @@ body.okayNav-loaded {
     /* Scrollable contents if viewport is shorter than content. */
     border-right: 1px solid #f6f6f6;
     width: 4.16667%;
+    font: white;
   }
 
   .sidebar {
@@ -9010,6 +9017,7 @@ body.okayNav-loaded {
   .footer {
     padding-left: 0;
     padding-right: 0;
+    color: white;
   }
 
   .social-links {
