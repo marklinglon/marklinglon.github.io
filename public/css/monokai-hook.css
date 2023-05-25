@@ -1,0 +1,20 @@
+@import url(monokai.css);
+
+/* If you want to set the line-height of the code, you can modify it */
+/*.highlight .line {
+  height: initial;
+  line-height: initial;
+}*/
+
+.highlight, pre {
+    overflow-y: hidden;
+    background-color: #272822;
+    line-height: 24px;
+}
+.highlight:before{
+    background-color: #272822;
+}
+
+.highlight table>tbody>tr:nth-of-type(odd) {
+    background-color: #272822;
+}

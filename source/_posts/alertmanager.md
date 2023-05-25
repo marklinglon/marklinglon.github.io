@@ -1,5 +1,10 @@
 ---
 title: Alertmanager
+categories: 
+  - prometheux
+tags:
+  - k8s
+sidebar: none 
 ---
 ```
 global:

@@ -20,7 +20,7 @@
   <title>404 Not Found：该页无法显示 | 汪茫人海</title>
   <meta property="og:type" content="website">
 <meta property="og:title" content="404 Not Found：该页无法显示">
-<meta property="og:url" content="http://example.com/404.html">
+<meta property="og:url" content="https://marklinglon.github.io/404.html">
 <meta property="og:site_name" content="汪茫人海">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-22T16:03:51.536Z">
@@ -28,7 +28,7 @@
 <meta property="article:author" content="mark long">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/404.html">
+  <link rel="canonical" href="https://marklinglon.github.io/404.html">
   
     <link rel="alternate" href="/atom.xml" title="汪茫人海" type="application/atom+xml">
   
@@ -39,9 +39,17 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+<link rel="stylesheet" href="/css/monokai-hook.css">
+
   
   
   
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs"></script>
+
 <meta name="generator" content="Hexo 6.3.0"></head>
 
 
@@ -93,7 +101,7 @@
       </button>
     </div>
     <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
-      <ul class="nav navbar-nav main-nav ">
+      <ul class="nav navbar-nav main-nav menu-highlight">
         
         
         <li class="menu-item menu-item-home">
@@ -213,12 +221,33 @@
 
     
       
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Kubebuilder/">Kubebuilder</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/prometheux/">prometheux</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
 
     
       
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/" rel="tag">k8s</a><span class="tag-list-count">5</span></li></ul>
+    </div>
+  </div>
+
 
     
       
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/k8s/" style="font-size: 14px;">k8s</a>
+    </div>
+  </div>
+
     
       
   <div class="widget">
@@ -240,7 +269,7 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/prometheux/">prometheux</a>
               </p>
               <p class="item-title">
                 <a href="/2023/05/23/alertmanager/" class="title">Alertmanager</a>
@@ -255,7 +284,7 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/Kubebuilder/">Kubebuilder</a>
               </p>
               <p class="item-title">
                 <a href="/2023/05/23/kubebuilder-Admission-Webhooks/" class="title">Kubebuilder Admission Webhooks</a>
@@ -270,7 +299,7 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/Kubebuilder/">Kubebuilder</a>
               </p>
               <p class="item-title">
                 <a href="/2023/05/23/kubebuilder-watch-resources/" class="title">Kubebuilder Watch Rresources</a>
@@ -285,7 +314,7 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/Kubebuilder/">Kubebuilder</a>
               </p>
               <p class="item-title">
                 <a href="/2023/05/23/kubebuilder-best-practices/" class="title">Kubebuilder Best Practices</a>
@@ -300,7 +329,7 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/Kubebuilder/">Kubebuilder</a>
               </p>
               <p class="item-title">
                 <a href="/2023/05/23/kubebuilder-webhook/" class="title">Kubebuilder Webhook 开发之创建 TLS 证书</a>
@@ -323,7 +352,10 @@
   
   
 <main class="main" role="main">
-  <div class="content">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs"></script>
+
+<div class="content">
   <article id="page-" class="article article-type-page" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
@@ -347,9 +379,23 @@
         
 
         
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
 
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/404.html#comments" class="article-comment-link">评论</a></span>
         
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 0(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
+
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
@@ -364,7 +410,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/404.html" title="404 Not Found：该页无法显示" target="_blank" rel="external">http://example.com/404.html</a>
+      <a href="https://marklinglon.github.io/404.html" title="404 Not Found：该页无法显示" target="_blank" rel="external">https://marklinglon.github.io/404.html</a>
     </li>
     
     <li class="post-copyright-license">
@@ -524,6 +570,35 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
 
 
 

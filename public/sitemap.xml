@@ -2,61 +2,61 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/2023/05/23/kubebuilder-best-practices/</loc>
+    <loc>https://marklinglon.github.io/2023/05/23/hexo/</loc>
     
-    <lastmod>2023-05-24</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/2023/05/23/hexo/</loc>
-    
-    <lastmod>2023-05-24</lastmod>
+    <lastmod>2023-05-25</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://example.com/2023/05/23/kubebuilder-Admission-Webhooks/</loc>
+    <loc>https://marklinglon.github.io/2023/05/23/alertmanager/</loc>
     
-    <lastmod>2023-05-24</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/2023/05/23/alertmanager/</loc>
-    
-    <lastmod>2023-05-23</lastmod>
+    <lastmod>2023-05-25</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://example.com/2023/05/23/kubebuilder-watch-resources/</loc>
+    <loc>https://marklinglon.github.io/2023/05/23/kubebuilder-webhook/</loc>
     
-    <lastmod>2023-05-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://example.com/2023/05/23/kubebuilder-webhook/</loc>
-    
-    <lastmod>2023-05-23</lastmod>
+    <lastmod>2023-05-25</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/index.html</loc>
+    <loc>https://marklinglon.github.io/2023/05/23/kubebuilder-Admission-Webhooks/</loc>
+    
+    <lastmod>2023-05-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://marklinglon.github.io/2023/05/23/kubebuilder-best-practices/</loc>
+    
+    <lastmod>2023-05-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://marklinglon.github.io/2023/05/23/kubebuilder-watch-resources/</loc>
+    
+    <lastmod>2023-05-25</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://marklinglon.github.io/tags/index.html</loc>
     
     <lastmod>2023-05-22</lastmod>
     
@@ -65,7 +65,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/about/index.html</loc>
+    <loc>https://marklinglon.github.io/about/index.html</loc>
     
     <lastmod>2023-05-22</lastmod>
     
@@ -74,7 +74,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/books/index.html</loc>
+    <loc>https://marklinglon.github.io/books/index.html</loc>
     
     <lastmod>2023-05-22</lastmod>
     
@@ -83,7 +83,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/index.html</loc>
+    <loc>https://marklinglon.github.io/categories/index.html</loc>
     
     <lastmod>2023-05-22</lastmod>
     
@@ -92,7 +92,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/repository/index.html</loc>
+    <loc>https://marklinglon.github.io/repository/index.html</loc>
     
     <lastmod>2023-05-22</lastmod>
     
@@ -101,7 +101,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/links/index.html</loc>
+    <loc>https://marklinglon.github.io/links/index.html</loc>
     
     <lastmod>2023-05-22</lastmod>
     
@@ -110,7 +110,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/404.html</loc>
+    <loc>https://marklinglon.github.io/404.html</loc>
     
     <lastmod>2023-05-22</lastmod>
     
@@ -120,13 +120,48 @@
   
 
   <url>
-    <loc>http://example.com/</loc>
-    <lastmod>2023-05-24</lastmod>
+    <loc>https://marklinglon.github.io/</loc>
+    <lastmod>2023-05-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
+  <url>
+    <loc>https://marklinglon.github.io/tags/k8s/</loc>
+    <lastmod>2023-05-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://marklinglon.github.io/tags/hexo/</loc>
+    <lastmod>2023-05-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
+  
+  <url>
+    <loc>https://marklinglon.github.io/categories/Kubebuilder/</loc>
+    <lastmod>2023-05-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://marklinglon.github.io/categories/hexo/</loc>
+    <lastmod>2023-05-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://marklinglon.github.io/categories/prometheux/</loc>
+    <lastmod>2023-05-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
   
 </urlset>

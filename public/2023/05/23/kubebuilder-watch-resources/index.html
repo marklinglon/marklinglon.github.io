@@ -18,19 +18,20 @@
   
   
   <title>Kubebuilder Watch Rresources | 汪茫人海</title>
-  <meta name="description" content="Kubebuilder Watching Resources 我们在开发过程中，可能需要开发一个类似Deployment的资源逻辑，管理依赖资源是控制器的基础，如果不能观察它们的状态变化就不可能管理它们。这就意味着，我们需要 reconciler 能监控多个资源的变化。 NOTE: Deployment 必须知道其管理的 ReplicaSet 何时更改，ReplicaSet 必须知道其管理的 Po">
+  <meta name="description" content="我们在开发过程中，可能需要开发一个类似Deployment的资源逻辑，管理依赖资源是控制器的基础，如果不能观察它们的状态变化就不可能管理它们。这就意味着，我们需要 reconciler 能监控多个资源的变化。  NOTE: Deployment 必须知道其管理的 ReplicaSet 何时更改，ReplicaSet 必须知道其管理的 Pod 何时被删除，或者从健康变为不健康等。  控制器运行时库为">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kubebuilder Watch Rresources">
-<meta property="og:url" content="http://example.com/2023/05/23/kubebuilder-watch-resources/index.html">
+<meta property="og:url" content="https://marklinglon.github.io/2023/05/23/kubebuilder-watch-resources/index.html">
 <meta property="og:site_name" content="汪茫人海">
-<meta property="og:description" content="Kubebuilder Watching Resources 我们在开发过程中，可能需要开发一个类似Deployment的资源逻辑，管理依赖资源是控制器的基础，如果不能观察它们的状态变化就不可能管理它们。这就意味着，我们需要 reconciler 能监控多个资源的变化。 NOTE: Deployment 必须知道其管理的 ReplicaSet 何时更改，ReplicaSet 必须知道其管理的 Po">
+<meta property="og:description" content="我们在开发过程中，可能需要开发一个类似Deployment的资源逻辑，管理依赖资源是控制器的基础，如果不能观察它们的状态变化就不可能管理它们。这就意味着，我们需要 reconciler 能监控多个资源的变化。  NOTE: Deployment 必须知道其管理的 ReplicaSet 何时更改，ReplicaSet 必须知道其管理的 Pod 何时被删除，或者从健康变为不健康等。  控制器运行时库为">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-23T03:51:52.668Z">
-<meta property="article:modified_time" content="2023-05-23T03:52:27.292Z">
+<meta property="article:modified_time" content="2023-05-25T16:05:03.803Z">
 <meta property="article:author" content="mark long">
+<meta property="article:tag" content="k8s">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/2023/05/23/kubebuilder-watch-resources/index.html">
+  <link rel="canonical" href="https://marklinglon.github.io/2023/05/23/kubebuilder-watch-resources/index.html">
   
     <link rel="alternate" href="/atom.xml" title="汪茫人海" type="application/atom+xml">
   
@@ -41,13 +42,21 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+<link rel="stylesheet" href="/css/monokai-hook.css">
+
   
   
   
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs"></script>
+
 <meta name="generator" content="Hexo 6.3.0"></head>
 
 
-<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+<body class="main-center no-sidebar" itemscope itemtype="http://schema.org/WebPage">
   <header class="header" itemscope itemtype="http://schema.org/WPHeader">
   <div class="slimContent">
     <div class="navbar-header">
@@ -95,7 +104,7 @@
       </button>
     </div>
     <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
-      <ul class="nav navbar-nav main-nav ">
+      <ul class="nav navbar-nav main-nav menu-highlight">
         
         
         <li class="menu-item menu-item-home">
@@ -215,12 +224,33 @@
 
     
       
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Kubebuilder/">Kubebuilder</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/prometheux/">prometheux</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
 
     
       
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/" rel="tag">k8s</a><span class="tag-list-count">5</span></li></ul>
+    </div>
+  </div>
+
 
     
       
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/k8s/" style="font-size: 14px;">k8s</a>
+    </div>
+  </div>
+
     
       
   <div class="widget">
@@ -242,7 +272,7 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/prometheux/">prometheux</a>
               </p>
               <p class="item-title">
                 <a href="/2023/05/23/alertmanager/" class="title">Alertmanager</a>
@@ -257,7 +287,7 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/Kubebuilder/">Kubebuilder</a>
               </p>
               <p class="item-title">
                 <a href="/2023/05/23/kubebuilder-Admission-Webhooks/" class="title">Kubebuilder Admission Webhooks</a>
@@ -272,7 +302,7 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/Kubebuilder/">Kubebuilder</a>
               </p>
               <p class="item-title">
                 <a href="/2023/05/23/kubebuilder-watch-resources/" class="title">Kubebuilder Watch Rresources</a>
@@ -287,7 +317,7 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/Kubebuilder/">Kubebuilder</a>
               </p>
               <p class="item-title">
                 <a href="/2023/05/23/kubebuilder-best-practices/" class="title">Kubebuilder Best Practices</a>
@@ -302,7 +332,7 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/Kubebuilder/">Kubebuilder</a>
               </p>
               <p class="item-title">
                 <a href="/2023/05/23/kubebuilder-webhook/" class="title">Kubebuilder Webhook 开发之创建 TLS 证书</a>
@@ -325,7 +355,10 @@
   
   
 <main class="main" role="main">
-  <div class="content">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs"></script>
+
+<div class="content">
   <article id="post-kubebuilder-watch-resources" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
@@ -346,216 +379,99 @@
 	</a>
 </span>
         
-        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Kubebuilder/">Kubebuilder</a>
+  </span>
 
         
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/k8s/" rel="tag">k8s</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
 
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/05/23/kubebuilder-watch-resources/#comments" class="article-comment-link">评论</a></span>
         
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.5k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7(分)</span>
+	
+
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p>Kubebuilder Watching Resources<br />
-我们在开发过程中，可能需要开发一个类似Deployment的资源逻辑，管理依赖资源是控制器的基础，如果不能观察它们的状态变化就不可能管理它们。这就意味着，我们需要 reconciler 能监控多个资源的变化。</p>
+        <p>我们在开发过程中，可能需要开发一个类似Deployment的资源逻辑，管理依赖资源是控制器的基础，如果不能观察它们的状态变化就不可能管理它们。这就意味着，我们需要 reconciler 能监控多个资源的变化。</p>
+<blockquote>
 <p>NOTE: Deployment 必须知道其管理的 ReplicaSet 何时更改，ReplicaSet 必须知道其管理的 Pod 何时被删除，或者从健康变为不健康等。</p>
+</blockquote>
 <p>控制器运行时库为管理和监视资源提供了多种方式。这包括从简单而明显的用例（例如查看由控制器创建和管理的资源）到更独特和更高级的用例。</p>
 <p>•控制器创建和管理的资源 (Watching Operator Managed Resources)<br />
 •外部管理的资源 (Watching Externally Managed Resources)</p>
-<p>背景<br />
-以 Tcaplus 资源为例，Tcaplus 资源通过 ConfigMap（proto 文件）来创建表格。当 ConfigMap 发生变化时自动更新表格，下面例子不实际调用腾讯云API，只要验证接收到事件请求即可。</p>
+<h1 id="背景"><a class="markdownIt-Anchor" href="#背景"></a> 背景</h1>
+<p>以 Tcaplus 资源为例，Tcaplus 资源通过 ConfigMap（proto 文件）来创建表格。当 ConfigMap 发生变化时自动更新表格，下面例子不实际调用腾讯云API，只要验证接收到事件请求即可。</p>
+<blockquote>
 <p>NOTE: TcaplusDB 是腾讯出品的分布式NoSQL数据库。官方API文档：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/596/39648%E3%80%82">https://cloud.tencent.com/document/product/596/39648。</a></p>
-<p>控制器创建和管理的资源<br />
-资源定义 (Defined Tcaplus Resources)<br />
+</blockquote>
+<h1 id="控制器创建和管理的资源"><a class="markdownIt-Anchor" href="#控制器创建和管理的资源"></a> 控制器创建和管理的资源</h1>
+<p>资源定义 (Defined Tcaplus Resources)<br />
 api/v1/tcaplus_types.go</p>
-<p>type TcaplusSpec struct {<br />
-Checksum string <code>json:&quot;checksum,omitempty&quot;</code><br />
-ConfigMapTemplate ConfigMapTemplate <code>json:&quot;configMapTemplate,omitempty&quot;</code><br />
-}</p>
-<p>type ConfigMapTemplate struct {<br />
-Name string <code>json:&quot;name,omitempty&quot;</code><br />
-Data map[string]string <code>json:&quot;data,omitempty&quot;</code><br />
-}</p>
-<p>控制器逻辑 (Manage the Owned Resource)<br />
-controllers/tcaplus_controller.go<br />
-当 tcaplus CR 创建时根据 ConfigMapTemplate 创建附属的 ConfigMap 资源并设置属主关系。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> TcaplusSpec <span class="keyword">struct</span> &#123;</span><br><span class="line">    Checksum <span class="type">string</span> <span class="string">`json:&quot;checksum,omitempty&quot;`</span></span><br><span class="line">    ConfigMapTemplate ConfigMapTemplate <span class="string">`json:&quot;configMapTemplate,omitempty&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ConfigMapTemplate <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="type">string</span> <span class="string">`json:&quot;name,omitempty&quot;`</span></span><br><span class="line">    Data <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span> <span class="string">`json:&quot;data,omitempty&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="控制器逻辑-manage-the-owned-resource"><a class="markdownIt-Anchor" href="#控制器逻辑-manage-the-owned-resource"></a> 控制器逻辑 (Manage the Owned Resource)</h1>
+<h2 id="controllerstcaplus_controllergo"><a class="markdownIt-Anchor" href="#controllerstcaplus_controllergo"></a> controllers/tcaplus_controller.go</h2>
+<p>当 tcaplus CR 创建时根据 ConfigMapTemplate 创建附属的 ConfigMap 资源并设置属主关系。</p>
 <p>•Reconcile 方法：根据模版创建 ConfigMap 并设置属主关系<br />
-•SetupWithManager 方法：For 方法之后调用 Owns 方法func (r *TcaplusReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {<br />
-logger := log.FromContext(ctx)<br />
-<a target="_blank" rel="noopener" href="http://logger.Info">logger.Info</a>(“reconciling”)<br />
-tcaplus := &amp;examplev1.Tcaplus{}<br />
-if err := r.Get(ctx, req.NamespacedName, tcaplus); err != nil {<br />
-return ctrl.Result{}, client.IgnoreNotFound(err)<br />
-}<br />
-configMap := &amp;corev1.ConfigMap{}<br />
-<a target="_blank" rel="noopener" href="http://configMap.Name">configMap.Name</a> = <a target="_blank" rel="noopener" href="http://tcaplus.Spec.ConfigMapTemplate.Name">tcaplus.Spec.ConfigMapTemplate.Name</a><br />
-configMap.Namespace = tcaplus.Namespace<br />
-configMap.Data = tcaplus.Spec.ConfigMapTemplate.Data</p>
-<p>if err := controllerutil.SetControllerReference(tcaplus, configMap, r.Scheme); err != nil {<br />
-logger.Error(err, “get configmap failed”, “configmap”, <a target="_blank" rel="noopener" href="http://configMap.Name">configMap.Name</a>)<br />
-return ctrl.Result{}, err<br />
-}<br />
-foundConfigMap := &amp;corev1.ConfigMap{}<br />
-err := r.Get(ctx, types.NamespacedName{Name: <a target="_blank" rel="noopener" href="http://configMap.Name">configMap.Name</a>, Namespace: tcaplus.Namespace}, foundConfigMap)<br />
-if err != nil &amp;&amp; errors.IsNotFound(err) {<br />
-logger.V(1).Info(“creating configmap”, “configmap”, <a target="_blank" rel="noopener" href="http://configMap.Name">configMap.Name</a>)<br />
-err = r.Create(ctx, configMap)<br />
-}<br />
-return ctrl.Result{}, nil<br />
-} // SetupWithManager sets up the controller with the Manager.<br />
-func (r *TcaplusReconciler) SetupWithManager(mgr ctrl.Manager) error {<br />
-return ctrl.NewControllerManagedBy(mgr).<br />
-For(&amp;examplev1.Tcaplus{}).<br />
-Owns(&amp;corev1.ConfigMap{}).<br />
-Complete®<br />
-}</p>
-<p>NOTE：同一控制器创建的资源才可以设置属主关系，不然会提示：already owned by another controller。<br />
-测试<br />
-config/samples/example_v1_tcaplus.yaml</p>
-<p>apiVersion: <a target="_blank" rel="noopener" href="http://example.blazehu.com/v1">example.blazehu.com/v1</a><br />
-kind: Tcaplus<br />
-metadata:<br />
-name: tcaplus-sample<br />
-spec:<br />
-checksum: “123”<br />
-configMapTemplate:<br />
-name: “tcaplus-configmap-example”<br />
-data:<br />
-demo.proto: |<br />
-syntax = “proto3”;<br />
-package example;<br />
-message Example {<br />
-uint32 a = 1;<br />
-uint32 b = 2;<br />
-uint32 c = 3;<br />
-}</p>
+•SetupWithManager 方法：For 方法之后调用 Owns 方法</p>
+<figure class="highlight roboconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">func (r *TcaplusReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) &#123;</span><br><span class="line">	<span class="attribute">logger</span> := log<span class="variable">.FromContext</span>(ctx)</span><br><span class="line"></span><br><span class="line">	logger<span class="variable">.Info</span>(&quot;reconciling&quot;)</span><br><span class="line">	tcaplus := &amp;examplev1<span class="variable">.Tcaplus</span>&#123;&#125;</span><br><span class="line">	if err := r<span class="variable">.Get</span>(ctx, req<span class="variable">.NamespacedName</span>, tcaplus); <span class="attribute">err != nil &#123;</span></span><br><span class="line"><span class="attribute">		return ctrl.Result&#123;&#125;, client.IgnoreNotFound(err)</span></span><br><span class="line"><span class="attribute">	&#125;</span></span><br><span class="line"><span class="attribute"></span></span><br><span class="line"><span class="attribute">	configMap</span> := &amp;corev1<span class="variable">.ConfigMap</span>&#123;&#125;</span><br><span class="line">	configMap<span class="variable">.Name</span> = tcaplus<span class="variable">.Spec</span><span class="variable">.ConfigMapTemplate</span><span class="variable">.Name</span></span><br><span class="line">	configMap<span class="variable">.Namespace</span> = tcaplus<span class="variable">.Namespace</span></span><br><span class="line">	configMap<span class="variable">.Data</span> = tcaplus<span class="variable">.Spec</span><span class="variable">.ConfigMapTemplate</span><span class="variable">.Data</span></span><br><span class="line">    </span><br><span class="line">	if err := controllerutil<span class="variable">.SetControllerReference</span>(tcaplus, configMap, r<span class="variable">.Scheme</span>); <span class="attribute">err != nil &#123;</span></span><br><span class="line"><span class="attribute">		logger.Error(err, &quot;get configmap failed&quot;, &quot;configmap&quot;, configMap.Name)</span></span><br><span class="line"><span class="attribute">		return ctrl.Result&#123;&#125;, err</span></span><br><span class="line"><span class="attribute">	&#125;</span></span><br><span class="line"><span class="attribute"></span></span><br><span class="line"><span class="attribute">	foundConfigMap</span> := &amp;corev1<span class="variable">.ConfigMap</span>&#123;&#125;</span><br><span class="line">	err := r<span class="variable">.Get</span>(ctx, types<span class="variable">.NamespacedName</span>&#123;Name: configMap<span class="variable">.Name</span>, Namespace: tcaplus<span class="variable">.Namespace</span>&#125;, foundConfigMap)</span><br><span class="line">	if err != nil &amp;&amp; errors<span class="variable">.IsNotFound</span>(err) &#123;</span><br><span class="line">		logger<span class="variable">.V</span>(1)<span class="variable">.Info</span>(&quot;creating configmap&quot;, &quot;configmap&quot;, configMap<span class="variable">.Name</span>)</span><br><span class="line">		err = r<span class="variable">.Create</span>(ctx, configMap)</span><br><span class="line">	&#125;</span><br><span class="line">	return ctrl<span class="variable">.Result</span>&#123;&#125;, nil</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// SetupWithManager sets up the controller with the Manager.</span><br><span class="line">func (r *TcaplusReconciler) SetupWithManager(mgr ctrl<span class="variable">.Manager</span>) error &#123;</span><br><span class="line">	return ctrl<span class="variable">.NewControllerManagedBy</span>(mgr).</span><br><span class="line">		For(&amp;examplev1<span class="variable">.Tcaplus</span>&#123;&#125;).</span><br><span class="line">		Owns(&amp;corev1<span class="variable">.ConfigMap</span>&#123;&#125;).</span><br><span class="line">		Complete(r)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>NOTE：同一控制器创建的资源才可以设置属主关系，不然会提示：already owned by another controller。</p>
+</blockquote>
+<h1 id="测试"><a class="markdownIt-Anchor" href="#测试"></a> 测试</h1>
+<p>config/samples/example_v1_tcaplus.yaml</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">apiVersion:</span> example.blazehu.com/v1</span><br><span class="line"><span class="symbol">kind:</span> Tcaplus</span><br><span class="line"><span class="symbol">metadata:</span></span><br><span class="line"><span class="symbol">  name:</span> tcaplus-sample</span><br><span class="line"><span class="symbol">spec:</span></span><br><span class="line"><span class="symbol">  checksum:</span> <span class="string">&quot;123&quot;</span></span><br><span class="line"><span class="symbol">  configMapTemplate:</span></span><br><span class="line"><span class="symbol">    name:</span> <span class="string">&quot;tcaplus-configmap-example&quot;</span></span><br><span class="line"><span class="symbol">    data:</span></span><br><span class="line">      demo.proto: |</span><br><span class="line">        <span class="attr">syntax</span> <span class="operator">=</span> <span class="string">&quot;proto3&quot;</span><span class="punctuation">;</span></span><br><span class="line">        package <span class="attr">example</span><span class="punctuation">;</span></span><br><span class="line">        message <span class="title class_">Example</span> <span class="punctuation">&#123;</span></span><br><span class="line">          uint32 a = <span class="number">1</span><span class="punctuation">;</span></span><br><span class="line">          uint32 b = <span class="number">2</span><span class="punctuation">;</span></span><br><span class="line">          uint32 c = <span class="number">3</span><span class="punctuation">;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 <p>使用上述配置文件创建 tcaplus 资源。创建结果：</p>
-<p>BLAZEHU-MB2:samples $ k get tcaplus<br />
-NAME AGE<br />
-tcaplus-sample 19m<br />
-BLAZEHU-MB2:samples $ k get configmap<br />
-NAME DATA AGE<br />
-tcaplus-configmap-example 1 19m</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">marklu-<span class="variable constant_">MB2</span><span class="symbol">:samples</span> <span class="variable">$ </span>k get tcaplus</span><br><span class="line"><span class="variable constant_">NAME</span> <span class="variable constant_">AGE</span></span><br><span class="line">tcaplus-sample 19m</span><br><span class="line">marklu-<span class="variable constant_">MB2</span><span class="symbol">:samples</span> <span class="variable">$ </span>k get configmap</span><br><span class="line"><span class="variable constant_">NAME</span> <span class="variable constant_">DATA</span> <span class="variable constant_">AGE</span></span><br><span class="line">tcaplus-configmap-example <span class="number">1</span> 19m</span><br></pre></td></tr></table></figure>
 <p>可以查看 tcaplus-configmap-example 的属主关系：</p>
-<p>apiVersion: v1<br />
-data:<br />
-demo.proto: |<br />
-syntax = “proto3”;<br />
-package example;<br />
-message Example {<br />
-uint32 a = 1;<br />
-uint32 b = 2;<br />
-}<br />
-kind: ConfigMap<br />
-metadata:<br />
-creationTimestamp: “2022-07-07T09:02:43Z”<br />
-name: tcaplus-configmap-example<br />
-namespace: default<br />
-ownerReferences:</p>
-<ul>
-<li>apiVersion: <a target="_blank" rel="noopener" href="http://example.blazehu.com/v1">example.blazehu.com/v1</a><br />
-blockOwnerDeletion: true<br />
-controller: true<br />
-kind: Tcaplus<br />
-name: tcaplus-sample<br />
-uid: 7c50f2e1-0e37-4aa0-bf49-c2d410d6153e<br />
-resourceVersion: “6837330713”<br />
-selfLink: /api/v1/namespaces/default/configmaps/tcaplus-configmap-example<br />
-uid: 6c29f90b-0e51-4d9f-a6a8-cfb6906ed1b0</li>
-</ul>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">apiVersion:</span> v1</span><br><span class="line"><span class="symbol">data:</span></span><br><span class="line">  demo.proto: |</span><br><span class="line">    <span class="attr">syntax</span> <span class="operator">=</span> <span class="string">&quot;proto3&quot;</span><span class="punctuation">;</span></span><br><span class="line">    package <span class="attr">example</span><span class="punctuation">;</span></span><br><span class="line">    message <span class="title class_">Example</span> <span class="punctuation">&#123;</span></span><br><span class="line">      uint32 a = <span class="number">1</span><span class="punctuation">;</span></span><br><span class="line">      uint32 b = <span class="number">2</span><span class="punctuation">;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="symbol">kind:</span> ConfigMap</span><br><span class="line"><span class="symbol">metadata:</span></span><br><span class="line"><span class="symbol">  creationTimestamp:</span> <span class="string">&quot;2022-07-07T09:02:43Z&quot;</span></span><br><span class="line"><span class="symbol">  name:</span> tcaplus-configmap-example</span><br><span class="line"><span class="symbol">  namespace:</span> default</span><br><span class="line"><span class="symbol">  ownerReferences:</span></span><br><span class="line">  - apiVersion: example.blazehu.com/v1</span><br><span class="line"><span class="symbol">    blockOwnerDeletion:</span> true</span><br><span class="line"><span class="symbol">    controller:</span> true</span><br><span class="line"><span class="symbol">    kind:</span> Tcaplus</span><br><span class="line"><span class="symbol">    name:</span> tcaplus-sample</span><br><span class="line"><span class="symbol">    uid:</span> <span class="number">7</span>c50f2e1<span class="number">-0e37</span><span class="number">-4</span>aa0-bf49-c2d410d6153e</span><br><span class="line"><span class="symbol">  resourceVersion:</span> <span class="string">&quot;6837330713&quot;</span></span><br><span class="line"><span class="symbol">  selfLink:</span> <span class="keyword">/api/</span>v1<span class="keyword">/namespaces/</span>default<span class="keyword">/configmaps/</span>tcaplus-configmap-example</span><br><span class="line"><span class="symbol">  uid:</span> <span class="number">6</span>c29f90b<span class="number">-0e51</span><span class="number">-4</span>d9f-a6a8-cfb6906ed1b0</span><br></pre></td></tr></table></figure>
 <p>手动修改 tcaplus-sample 和 tcaplus-configmap-example 后查看控制器日志发现能正常观察 CR 和 ConfigMap 的变化了。</p>
-<p>外部管理的资源<br />
-资源定义 (Defined Tcaplus Resources)<br />
+<h1 id="外部管理的资源"><a class="markdownIt-Anchor" href="#外部管理的资源"></a> 外部管理的资源</h1>
+<p>资源定义 (Defined Tcaplus Resources)<br />
 api/v1/tcaplus_types.go</p>
-<p>type TcaplusSpec struct {<br />
-Checksum string <code>json:&quot;checksum,omitempty&quot;</code><br />
-ConfigMapRef ConfigMapReference <code>json:&quot;configMapRef,omitempty&quot;</code><br />
-}</p>
-<p>type ConfigMapReference struct {<br />
-Name string <code>json:&quot;name,omitempty&quot;</code><br />
-}</p>
-<p>控制器逻辑 (Manage the Owned Resource)<br />
-controllers/tcaplus_controller.go<br />
-For 方法之后调用 Watches 方法就可以监听对应资源的事件，但是会监听集群里所有相关资源的事件，所以这里我们自定义事件处理方法来过滤出我们关注的资源的事件。</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="type">TcaplusSpec</span> struct &#123;</span><br><span class="line">	<span class="type">Checksum</span>     string             `json:&quot;checksum,omitempty&quot;`</span><br><span class="line">	<span class="type">ConfigMapRef</span> <span class="type">ConfigMapReference</span> `json:&quot;configMapRef,omitempty&quot;`</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> <span class="type">ConfigMapReference</span> struct &#123;</span><br><span class="line">	<span class="type">Name</span> string `json:&quot;name,omitempty&quot;`</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="控制器逻辑-manage-the-owned-resource-2"><a class="markdownIt-Anchor" href="#控制器逻辑-manage-the-owned-resource-2"></a> 控制器逻辑 (Manage the Owned Resource)</h1>
+<h5 id="controllerstcaplus_controllergo-2"><a class="markdownIt-Anchor" href="#controllerstcaplus_controllergo-2"></a> controllers/tcaplus_controller.go</h5>
+<p>For 方法之后调用 Watches 方法就可以监听对应资源的事件，但是会监听集群里所有相关资源的事件，所以这里我们自定义事件处理方法来过滤出我们关注的资源的事件。</p>
 <p>•通过 EnqueueRequestsFromMapFunc 创建一个事件处理方法，该方法通过 FieldSelector 在 ConfigMap 的事件中过滤出跟 tcaplus CR 相关联的事件。<br />
-•使用 FieldSelector 时我们需要建立对应的索引，使用 mgr.GetFieldIndexer().IndexField() 创建。const (<br />
-ConfigMapField = “.spec.configMapRef.name”<br />
-) func (r *TcaplusReconciler) findObjectsForConfigMap(configMap client.Object) []reconcile.Request {<br />
-attachedTcaplusList := &amp;examplev1.TcaplusList{}<br />
-listOps := &amp;client.ListOptions{<br />
-FieldSelector: fields.OneTermEqualSelector(ConfigMapField, configMap.GetName()),<br />
-Namespace: configMap.GetNamespace(),<br />
-}<br />
-err := r.List(context.TODO(), attachedTcaplusList, listOps)<br />
-if err != nil {<br />
-return []reconcile.Request{}<br />
-}<br />
-requests := make([]reconcile.Request, len(attachedTcaplusList.Items))<br />
-for i, item := range attachedTcaplusList.Items {<br />
-requests[i] = reconcile.Request{<br />
-NamespacedName: types.NamespacedName{<br />
-Name: item.GetName(),<br />
-Namespace: item.GetNamespace(),<br />
-},<br />
-}<br />
-}<br />
-return requests<br />
-} // SetupWithManager sets up the controller with the Manager.<br />
-func (r *TcaplusReconciler) SetupWithManager(mgr ctrl.Manager) error {<br />
-if err := mgr.GetFieldIndexer().IndexField(context.Background(), &amp;examplev1.Tcaplus{}, ConfigMapField, func(rawObj client.Object) []string {<br />
-tcaplus := rawObj.(*examplev1.Tcaplus)<br />
-if <a target="_blank" rel="noopener" href="http://tcaplus.Spec.ConfigMapRef.Name">tcaplus.Spec.ConfigMapRef.Name</a> == “” {<br />
-return nil<br />
-}<br />
-return []string{<a target="_blank" rel="noopener" href="http://tcaplus.Spec.ConfigMapRef.Name">tcaplus.Spec.ConfigMapRef.Name</a>}<br />
-}); err != nil {<br />
-return err<br />
-}<br />
-return ctrl.NewControllerManagedBy(mgr).<br />
-For(&amp;examplev1.Tcaplus{}).<br />
-Watches(<br />
-&amp;source.Kind{Type: &amp;corev1.ConfigMap{}},<br />
-handler.EnqueueRequestsFromMapFunc(r.findObjectsForConfigMap),<br />
-builder.WithPredicates(predicate.ResourceVersionChangedPredicate{}),<br />
-).<br />
-Complete®<br />
-} 上面 ConfigMap 监听使用默认的 Predicates 过滤器 ResourceVersionChangedPredicate，查看源码定义就是说当 resource version 变化时事件会入队。// ResourceVersionChangedPredicate implements a default update predicate function on resource version change.<br />
-type ResourceVersionChangedPredicate struct {<br />
-Funcs<br />
-}</p>
-<p>NOTE: 我们也可以自己定一个变更过滤器 Predicate。也可以通过 WithEventFilter 来针对监听的所有资源过滤。<br />
-测试<br />
-config/samples/example_v1_tcaplus.yaml</p>
-<p>apiVersion: v1<br />
-kind: ConfigMap<br />
-metadata:<br />
-name: tcaplus-configmap-example<br />
-data:<br />
-demo.proto: |<br />
-syntax = “proto3”;<br />
-package example;<br />
-message Example {<br />
-uint32 a = 1;<br />
-uint32 b = 2;<br />
-uint32 c = 3;<br />
-}</p>
-<hr />
-<p>apiVersion: <a target="_blank" rel="noopener" href="http://example.blazehu.com/v1">example.blazehu.com/v1</a><br />
-kind: Tcaplus<br />
-metadata:<br />
-name: tcaplus-sample<br />
-spec:<br />
-checksum: “123”<br />
-configMapRef:<br />
-name: “tcaplus-configmap-example”</p>
+•使用 FieldSelector 时我们需要建立对应的索引，使用 mgr.GetFieldIndexer().IndexField() 创建。</p>
+<figure class="highlight roboconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">const (</span><br><span class="line">    ConfigMapField = &quot;.spec.configMapRef.name&quot;</span><br><span class="line">) </span><br><span class="line">func (r *TcaplusReconciler) findObjectsForConfigMap(configMap client.Object) []reconcile.Request &#123;</span><br><span class="line">    <span class="attribute">attachedTcaplusList</span> := &amp;examplev1<span class="variable">.TcaplusList</span>&#123;&#125;</span><br><span class="line">    listOps := &amp;client<span class="variable">.ListOptions</span>&#123;</span><br><span class="line">        FieldSelector: fields<span class="variable">.OneTermEqualSelector</span>(ConfigMapField, configMap<span class="variable">.GetName</span>()),</span><br><span class="line">        Namespace: configMap<span class="variable">.GetNamespace</span>(),</span><br><span class="line">    &#125;</span><br><span class="line">    err := r<span class="variable">.List</span>(context<span class="variable">.TODO</span>(), attachedTcaplusList, listOps)</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        return []reconcile<span class="variable">.Request</span>&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    requests := make([]reconcile<span class="variable">.Request</span>, len(attachedTcaplusList<span class="variable">.Items</span>))</span><br><span class="line">    for i, item := range attachedTcaplusList<span class="variable">.Items</span> &#123;</span><br><span class="line">        requests[i] = reconcile<span class="variable">.Request</span>&#123;</span><br><span class="line">            NamespacedName: types<span class="variable">.NamespacedName</span>&#123;</span><br><span class="line">                Name: item<span class="variable">.GetName</span>(),</span><br><span class="line">                Namespace: item<span class="variable">.GetNamespace</span>(),</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return requests</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">// SetupWithManager sets up the controller with the Manager.</span><br><span class="line">func (r *TcaplusReconciler) SetupWithManager(mgr ctrl<span class="variable">.Manager</span>) error &#123;</span><br><span class="line">	if err := mgr<span class="variable">.GetFieldIndexer</span>()<span class="variable">.IndexField</span>(context<span class="variable">.Background</span>(), &amp;examplev1<span class="variable">.Tcaplus</span>&#123;&#125;, ConfigMapField, func(rawObj client<span class="variable">.Object</span>) []string &#123;</span><br><span class="line">		tcaplus := rawObj.(*examplev1<span class="variable">.Tcaplus</span>)</span><br><span class="line">		if tcaplus<span class="variable">.Spec</span><span class="variable">.ConfigMapRef</span><span class="variable">.Name</span> == &quot;&quot; &#123;</span><br><span class="line">			return nil</span><br><span class="line">		&#125;</span><br><span class="line">		return []string&#123;tcaplus<span class="variable">.Spec</span><span class="variable">.ConfigMapRef</span><span class="variable">.Name</span>&#125;</span><br><span class="line">	&#125;); <span class="attribute">err != nil &#123;</span></span><br><span class="line"><span class="attribute">		return err</span></span><br><span class="line"><span class="attribute">	&#125;</span></span><br><span class="line"><span class="attribute"></span></span><br><span class="line"><span class="attribute">	return ctrl.NewControllerManagedBy(mgr).</span></span><br><span class="line"><span class="attribute">		For(&amp;examplev1.Tcaplus&#123;&#125;).</span></span><br><span class="line"><span class="attribute">		Watches(</span></span><br><span class="line"><span class="attribute">			&amp;source.Kind&#123;Type</span>: &amp;corev1<span class="variable">.ConfigMap</span>&#123;&#125;&#125;,</span><br><span class="line">			handler<span class="variable">.EnqueueRequestsFromMapFunc</span>(r<span class="variable">.findObjectsForConfigMap</span>),</span><br><span class="line">			builder<span class="variable">.WithPredicates</span>(predicate<span class="variable">.ResourceVersionChangedPredicate</span>&#123;&#125;),</span><br><span class="line">		).</span><br><span class="line">		Complete(r)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>NOTE: 我们也可以自己定一个变更过滤器 Predicate。也可以通过 WithEventFilter 来针对监听的所有资源过滤。</p>
+</blockquote>
+<h1 id="测试-2"><a class="markdownIt-Anchor" href="#测试-2"></a> 测试</h1>
+<p>config/samples/example_v1_tcaplus.yaml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">tcaplus-configmap-example</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">demo.proto:</span> <span class="string">|</span></span><br><span class="line"><span class="string">    syntax = &quot;proto3&quot;;</span></span><br><span class="line"><span class="string">    package example;</span></span><br><span class="line"><span class="string">    message Example &#123;</span></span><br><span class="line"><span class="string">      uint32 a = 1;</span></span><br><span class="line"><span class="string">      uint32 b = 2;</span></span><br><span class="line"><span class="string">      uint32 c = 3;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">example.blazehu.com/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Tcaplus</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">tcaplus-sample</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">checksum:</span> <span class="string">&quot;123&quot;</span></span><br><span class="line">  <span class="attr">configMapRef:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">&quot;tcaplus-configmap-example&quot;</span></span><br></pre></td></tr></table></figure>
 <p>使用上述配置创建完毕后，手动修改 tcaplus-sample 和 tcaplus-configmap-example 查看控制器日志发现同样能正常观察 CR 和 ConfigMap 的变化。</p>
+<blockquote>
 <p>NOTE: 查看 tcaplus-configmap-example 可以看到没有和 tcaplus 的属主关系。</p>
-<p>总结<br />
-•EventHandler 可以在 watch 特定资源时设置该资源的事件监听规则。<br />
+</blockquote>
+<h1 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h1>
+<p>•EventHandler 可以在 watch 特定资源时设置该资源的事件监听规则。<br />
 •WithEventFilter 配置变更过滤器，可以针对 watch 的所有资源，统一地设置事件监听规则。<br />
 •Owns 源码分析可以发现 Owns 相当于调用 Watches(&amp;source.Kind{Type: <ForType-forInput>}, &amp;handler.EnqueueRequestForOwner{OwnerType: apiType, IsController: true})。</p>
-<p>参考文档<br />
-•<a target="_blank" rel="noopener" href="https://www.kubebuilder.io/reference/watching-resources.html">https://www.kubebuilder.io/reference/watching-resources.html</a><br />
+<h1 id="参考文档"><a class="markdownIt-Anchor" href="#参考文档"></a> 参考文档</h1>
+<p>•<a target="_blank" rel="noopener" href="https://www.kubebuilder.io/reference/watching-resources.html">https://www.kubebuilder.io/reference/watching-resources.html</a><br />
 •<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/owners-dependents/">https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/owners-dependents/</a><br />
 •<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020359577">https://segmentfault.com/a/1190000020359577</a></p>
 
@@ -567,7 +483,7 @@ name: “tcaplus-configmap-example”</p>
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2023/05/23/kubebuilder-watch-resources/" title="Kubebuilder Watch Rresources" target="_blank" rel="external">http://example.com/2023/05/23/kubebuilder-watch-resources/</a>
+      <a href="https://marklinglon.github.io/2023/05/23/kubebuilder-watch-resources/" title="Kubebuilder Watch Rresources" target="_blank" rel="external">https://marklinglon.github.io/2023/05/23/kubebuilder-watch-resources/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -749,6 +665,8 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
    
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
 
 
@@ -771,6 +689,35 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
 
 
 

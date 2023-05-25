@@ -1,5 +1,10 @@
 ---
 title: Kubebuilder Admission Webhooks
+categories: 
+  - Kubebuilder
+tags:
+  - k8s
+sidebar: none 
 ---
 # 什么是准入控制?
 准入控制（Admission Controller）是 Kubernetes API Server 用于拦截请求的一种手段。Admission 可以做到对请求的资源对象进行校验，修改。service mesh 最近很火的项目 Istio 天生支持 Kubernetes，利用的就是 Admission 对服务实例自动注入 sidecar。
@@ -47,42 +52,42 @@ Implement Your Handler
 package controllers
 
 import (
-"context"
-"encoding/json"
-corev1 "k8s.io/api/core/v1"
-"net/http"
-"sigs.k8s.io/controller-runtime/pkg/client"
-"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
+	"context"
+	"encoding/json"
+	corev1 "k8s.io/api/core/v1"
+	"net/http"
+	"sigs.k8s.io/controller-runtime/pkg/client"
+	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 )
 
 // +kubebuilder:webhook:admissionReviewVersions=v1,sideEffects=None,path=/mutate-v1-svc,mutating=true,failurePolicy=fail,groups="",resources=services,verbs=create;update,versions=v1,name=msvc.kb.io
 
 // KubeGameAnnotator annotates Pods
 type KubeGameAnnotator struct {
-Client client.Client
-decoder *admission.Decoder
+	Client  client.Client
+	decoder *admission.Decoder
 }
 
 // Handle adds an annotation to every incoming pods.
 func (a *KubeGameAnnotator) Handle(ctx context.Context, req admission.Request) admission.Response {
-pod := &corev1.Pod{}
+	pod := &corev1.Pod{}
 
-err := a.decoder.Decode(req, pod)  
-if err != nil {  
-    return admission.Errored(http.StatusBadRequest, err)  
-}  
+	err := a.decoder.Decode(req, pod)
+	if err != nil {
+		return admission.Errored(http.StatusBadRequest, err)
+	}
 
-if pod.Annotations == nil {  
-    pod.Annotations = map\[string\]string{}  
-}  
-pod.Annotations\["example-mutating-admission-webhook"\] = "foo"  
+	if pod.Annotations == nil {
+		pod.Annotations = map[string]string{}
+	}
+	pod.Annotations["example-mutating-admission-webhook"] = "foo"
 
-marshaledPod, err := json.Marshal(pod)  
-if err != nil {  
-    return admission.Errored(http.StatusInternalServerError, err)  
-}  
+	marshaledPod, err := json.Marshal(pod)
+	if err != nil {
+		return admission.Errored(http.StatusInternalServerError, err)
+	}
 
-return admission.PatchResponseFromRaw(req.Object.Raw, marshaledPod)  
+	return admission.PatchResponseFromRaw(req.Object.Raw, marshaledPod)
 }
 
 // KubeGameAnnotator implements admission.DecoderInjector.
@@ -90,49 +95,50 @@ return admission.PatchResponseFromRaw(req.Object.Raw, marshaledPod)
 
 // InjectDecoder injects the decoder.
 func (a *KubeGameAnnotator) InjectDecoder(d *admission.Decoder) error {
-a.decoder = d
-return nil
+	a.decoder = d
+	return nil
 }
-
+```
+```
 // validatingwebhook.go
 package controllers
 
 import (
-"context"
-"fmt"
-corev1 "k8s.io/api/core/v1"
-"net/http"
-"sigs.k8s.io/controller-runtime/pkg/client"
-"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
+	"context"
+	"fmt"
+	corev1 "k8s.io/api/core/v1"
+	"net/http"
+	"sigs.k8s.io/controller-runtime/pkg/client"
+	"sigs.k8s.io/controller-runtime/pkg/webhook/admission"
 )
 
 // +kubebuilder:webhook:admissionReviewVersions=v1,sideEffects=None,path=/validate-v1-svc,mutating=false,failurePolicy=fail,groups="",resources=services,verbs=create;update,versions=v1,name=vsvc.kb.io
 
 // KubeGameValidator validates Pods
 type KubeGameValidator struct {
-Client client.Client
-decoder *admission.Decoder
+	Client  client.Client
+	decoder *admission.Decoder
 }
 
 // Handle admits a pod if a specific annotation exists.
 func (v *KubeGameValidator) Handle(ctx context.Context, req admission.Request) admission.Response {
-pod := &corev1.Pod{}
+	pod := &corev1.Pod{}
 
-err := v.decoder.Decode(req, pod)  
-if err != nil {  
-    return admission.Errored(http.StatusBadRequest, err)  
-}  
+	err := v.decoder.Decode(req, pod)
+	if err != nil {
+		return admission.Errored(http.StatusBadRequest, err)
+	}
 
-key := "example-mutating-admission-webhook"  
-anno, found := pod.Annotations\[key\]  
-if !found {  
-    return admission.Denied(fmt.Sprintf("missing annotation %s", key))  
-}  
-if anno != "foo" {  
-    return admission.Denied(fmt.Sprintf("annotation %s did not have value %q", key, "foo"))  
-}  
+	key := "example-mutating-admission-webhook"
+	anno, found := pod.Annotations[key]
+	if !found {
+		return admission.Denied(fmt.Sprintf("missing annotation %s", key))
+	}
+	if anno != "foo" {
+		return admission.Denied(fmt.Sprintf("annotation %s did not have value %q", key, "foo"))
+	}
 
-return admission.Allowed("")  
+	return admission.Allowed("")
 }
 
 // KubeGameValidator implements admission.DecoderInjector.
@@ -140,13 +146,13 @@ return admission.Allowed("")
 
 // InjectDecoder injects the decoder.
 func (v *KubeGameValidator) InjectDecoder(d *admission.Decoder) error {
-v.decoder = d
-return nil
+	v.decoder = d
+	return nil
 }
 ```
-注意：因为上述逻辑需要services权限，所以我们在控制器里需要添加如下内容 //+kubebuilder:rbac:groups="",resources=services,verbs=get;list;watch;create;update;patch;delete 用于生成 rbac manifests。
+> 注意：因为上述逻辑需要services权限，所以我们在控制器里需要添加如下内容 //+kubebuilder:rbac:groups="",resources=services,verbs=get;list;watch;create;update;patch;delete 用于生成 rbac manifests。
 
-Register Your Handler
+> Register Your Handler
 修改 main.go ，注册我们的 webhook handler
 ```
 setupLog.Info("setting up webhook server")
@@ -156,30 +162,31 @@ setupLog.Info("registering webhooks to the webhook server")
 hookServer.Register("/mutate-v1-svc", &webhook.Admission{Handler: &controllers.KubeGameAnnotator{Client: mgr.GetClient()}})
 hookServer.Register("/validate-v1-svc", &webhook.Admission{Handler: &controllers.KubeGameValidator{Client: mgr.GetClient()}})
 ```
-提示： 这里注册的path（例如 validate-v1-sv）路径需要和 validatingwebhook.go 、mutatingwebhook.go 文件里的 CRD validation 匹配，不然 kustomize 生成出来的 webhook yaml 文件不对。
+> 提示： 这里注册的path（例如 validate-v1-sv）路径需要和 validatingwebhook.go 、mutatingwebhook.go 文件里的 CRD validation 匹配，不然 kustomize 生成出来的 webhook yaml 文件不对。
 
-本地测试
+# 本地测试
 make run 会报如下错误，是因为没有证书导致，需要配置证书，可以手动签发证书。
-
+```
 1.646924212701068e+09 ERROR setup problem running manager {"error": "open /var/folders/67/375276sx6hv0nln1whwm5syh0000gq/T/k8s-webhook-server/serving-certs/tls.crt: no such file or directory"}
+```
 
 我本地指定证书目录：
 ```
 mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
-Scheme: scheme,
-MetricsBindAddress: metricsAddr,
-Port: 9443,
-HealthProbeBindAddress: probeAddr,
-LeaderElection: enableLeaderElection,
-LeaderElectionID: "27e1b0af.marklu.com",
-CertDir: "./cert/",
-})
+		Scheme:                 scheme,
+		MetricsBindAddress:     metricsAddr,
+		Port:                   9443,
+		HealthProbeBindAddress: probeAddr,
+		LeaderElection:         enableLeaderElection,
+		LeaderElectionID:       "27e1b0af.blazehu.com",
+		CertDir:                "./cert/",
+	})
 ```
 重新启动发现恢复正常
 
-提示： run controller-gen rbac:roleName=manager-role crd webhook paths=./... output:crd:artifacts:config=config/crd/bases -w to see all available markers, or controller-gen rbac:roleName=manager-role crd webhook paths=./... output:crd:artifacts:config=config/crd/bases -h for usage
+> 提示： run controller-gen rbac:roleName=manager-role crd webhook paths=./... output:crd:artifacts:config=config/crd/bases -w to see all available markers, or controller-gen rbac:roleName=manager-role crd webhook paths=./... output:crd:artifacts:config=config/crd/bases -h for usage
 
-7. 部署至集群
+# 7. 部署至集群
 7.1 部署 cert manager
 建议使用 certmanager 为 webhook 服务器提供证书。其他解决方案也有效，只要它们将证书放在所需的位置。安装文档点这里
 通过如下方式注入 caBundle :
@@ -189,18 +196,18 @@ CertDir: "./cert/",
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
-name: mutating-webhook-configuration
-annotations:
-cert-manager.io/inject-ca-from: $(CERTIFICATE_NAMESPACE)/$(CERTIFICATE_NAME)
+  name: mutating-webhook-configuration
+  annotations:
+    cert-manager.io/inject-ca-from: $(CERTIFICATE_NAMESPACE)/$(CERTIFICATE_NAME)
 ---
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
 metadata:
-name: validating-webhook-configuration
-annotations:
-cert-manager.io/inject-ca-from: $(CERTIFICATE_NAMESPACE)/$(CERTIFICATE_NAME)
+  name: validating-webhook-configuration
+  annotations:
+    cert-manager.io/inject-ca-from: $(CERTIFICATE_NAMESPACE)/$(CERTIFICATE_NAME)
 ```
-7.2 构建镜像
+# 7.2 构建镜像
 •镜像替换：default/manager_auth_proxy_patch.yaml 文件中的 gcr.io/kubebuilder/kube-rbac-proxy:v0.8.0 （网络慢）
 •Dockerfile 去掉 go mod download，直接使用本地 vendor 构建 （网络慢）
 •Dockerfile 去掉 COPY api/ api/， 因为没有创建 Resource
@@ -209,7 +216,7 @@ cert-manager.io/inject-ca-from: $(CERTIFICATE_NAMESPACE)/$(CERTIFICATE_NAME)
 make docker-build IMG=xxxx
 make docker-push IMG=xxxx
 ```
-7.3 修改模版，然后部署
+# 7.3 修改模版，然后部署
 •修改 config/default/kustomization.yaml ， 将 webhook、certmanager 相关的注释去掉。
 •修改 config/crd/kustomization.yaml ，将 webhook、certmanager 相关的注释去掉。
 •修改 config/default/kustomization.yaml ， 将 crd 相关的给注释掉。
@@ -220,7 +227,7 @@ make deploy IMG=xxxx
 
 查看控制器日志：
 
-7.4 测试
+# 7.4 测试
 简单创建一个 service，webhook 会注入一个注解，并进行验证。下图可以看到成功注入。
 
 
@@ -228,7 +235,7 @@ make deploy IMG=xxxx
 
 说明：查看 MutatingWebhookConfiguration 配置可以看到 caBundle 被注入其中了。
 
-8. 总结
+# 8. 总结
 总结下 webhook Admission 的优势：
 
 •webhook 可动态扩展 Admission 能力，满足自定义客户的需求。

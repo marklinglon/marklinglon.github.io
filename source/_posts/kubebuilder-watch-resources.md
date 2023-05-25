@@ -1,5 +1,10 @@
 ---
 title: Kubebuilder Watch Rresources
+categories: 
+  - Kubebuilder
+tags:
+  - k8s
+sidebar: none 
 ---
 我们在开发过程中，可能需要开发一个类似Deployment的资源逻辑，管理依赖资源是控制器的基础，如果不能观察它们的状态变化就不可能管理它们。这就意味着，我们需要 reconciler 能监控多个资源的变化。
 
@@ -10,7 +15,7 @@ title: Kubebuilder Watch Rresources
 •控制器创建和管理的资源 (Watching Operator Managed Resources)
 •外部管理的资源 (Watching Externally Managed Resources)
 
-背景
+# 背景
 以 Tcaplus 资源为例，Tcaplus 资源通过 ConfigMap（proto 文件）来创建表格。当 ConfigMap 发生变化时自动更新表格，下面例子不实际调用腾讯云API，只要验证接收到事件请求即可。
 
 >NOTE: TcaplusDB 是腾讯出品的分布式NoSQL数据库。官方API文档：https://cloud.tencent.com/document/product/596/39648。
@@ -30,41 +35,46 @@ type ConfigMapTemplate struct {
 }
 ```
 # 控制器逻辑 (Manage the Owned Resource)
-controllers/tcaplus_controller.go
+## controllers/tcaplus_controller.go
 当 tcaplus CR 创建时根据 ConfigMapTemplate 创建附属的 ConfigMap 资源并设置属主关系。
 
 •Reconcile 方法：根据模版创建 ConfigMap 并设置属主关系
 •SetupWithManager 方法：For 方法之后调用 Owns 方法
 ```
 func (r *TcaplusReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
-logger := log.FromContext(ctx)
-logger.Info("reconciling")
-tcaplus := &examplev1.Tcaplus{}
-if err := r.Get(ctx, req.NamespacedName, tcaplus); err != nil {
-return ctrl.Result{}, client.IgnoreNotFound(err)
-}
-configMap := &corev1.ConfigMap{}
-configMap.Name = tcaplus.Spec.ConfigMapTemplate.Name
-configMap.Namespace = tcaplus.Namespace
-configMap.Data = tcaplus.Spec.ConfigMapTemplate.Data
+	logger := log.FromContext(ctx)
 
-if err := controllerutil.SetControllerReference(tcaplus, configMap, r.Scheme); err != nil {
-logger.Error(err, "get configmap failed", "configmap", configMap.Name)
-return ctrl.Result{}, err
+	logger.Info("reconciling")
+	tcaplus := &examplev1.Tcaplus{}
+	if err := r.Get(ctx, req.NamespacedName, tcaplus); err != nil {
+		return ctrl.Result{}, client.IgnoreNotFound(err)
+	}
+
+	configMap := &corev1.ConfigMap{}
+	configMap.Name = tcaplus.Spec.ConfigMapTemplate.Name
+	configMap.Namespace = tcaplus.Namespace
+	configMap.Data = tcaplus.Spec.ConfigMapTemplate.Data
+    
+	if err := controllerutil.SetControllerReference(tcaplus, configMap, r.Scheme); err != nil {
+		logger.Error(err, "get configmap failed", "configmap", configMap.Name)
+		return ctrl.Result{}, err
+	}
+
+	foundConfigMap := &corev1.ConfigMap{}
+	err := r.Get(ctx, types.NamespacedName{Name: configMap.Name, Namespace: tcaplus.Namespace}, foundConfigMap)
+	if err != nil && errors.IsNotFound(err) {
+		logger.V(1).Info("creating configmap", "configmap", configMap.Name)
+		err = r.Create(ctx, configMap)
+	}
+	return ctrl.Result{}, nil
 }
-foundConfigMap := &corev1.ConfigMap{}
-err := r.Get(ctx, types.NamespacedName{Name: configMap.Name, Namespace: tcaplus.Namespace}, foundConfigMap)
-if err != nil && errors.IsNotFound(err) {
-logger.V(1).Info("creating configmap", "configmap", configMap.Name)
-err = r.Create(ctx, configMap)
-}
-return ctrl.Result{}, nil
-} // SetupWithManager sets up the controller with the Manager.
+
+// SetupWithManager sets up the controller with the Manager.
 func (r *TcaplusReconciler) SetupWithManager(mgr ctrl.Manager) error {
-return ctrl.NewControllerManagedBy(mgr).
-For(&examplev1.Tcaplus{}).
-Owns(&corev1.ConfigMap{}).
-Complete(r)
+	return ctrl.NewControllerManagedBy(mgr).
+		For(&examplev1.Tcaplus{}).
+		Owns(&corev1.ConfigMap{}).
+		Complete(r)
 }
 ```
 
@@ -73,23 +83,23 @@ Complete(r)
 # 测试
 config/samples/example_v1_tcaplus.yaml
 ```
-apiVersion: example.marklu.com/v1
+apiVersion: example.blazehu.com/v1
 kind: Tcaplus
 metadata:
-name: tcaplus-sample
+  name: tcaplus-sample
 spec:
-checksum: "123"
-configMapTemplate:
-name: "tcaplus-configmap-example"
-data:
-demo.proto: |
-syntax = "proto3";
-package example;
-message Example {
-uint32 a = 1;
-uint32 b = 2;
-uint32 c = 3;
-}
+  checksum: "123"
+  configMapTemplate:
+    name: "tcaplus-configmap-example"
+    data:
+      demo.proto: |
+        syntax = "proto3";
+        package example;
+        message Example {
+          uint32 a = 1;
+          uint32 b = 2;
+          uint32 c = 3;
+        }
 ```
 使用上述配置文件创建 tcaplus 资源。创建结果：
 ```
@@ -104,28 +114,28 @@ tcaplus-configmap-example 1 19m
 ```
 apiVersion: v1
 data:
-demo.proto: |
-syntax = "proto3";
-package example;
-message Example {
-uint32 a = 1;
-uint32 b = 2;
-}
+  demo.proto: |
+    syntax = "proto3";
+    package example;
+    message Example {
+      uint32 a = 1;
+      uint32 b = 2;
+    }
 kind: ConfigMap
 metadata:
-creationTimestamp: "2022-07-07T09:02:43Z"
-name: tcaplus-configmap-example
-namespace: default
-ownerReferences:
-- apiVersion: example.marklu.com/v1
-blockOwnerDeletion: true
-controller: true
-kind: Tcaplus
-name: tcaplus-sample
-uid: 7c50f2e1-0e37-4aa0-bf49-c2d410d6153e
-resourceVersion: "6837330713"
-selfLink: /api/v1/namespaces/default/configmaps/tcaplus-configmap-example
-uid: 6c29f90b-0e51-4d9f-a6a8-cfb6906ed1b0
+  creationTimestamp: "2022-07-07T09:02:43Z"
+  name: tcaplus-configmap-example
+  namespace: default
+  ownerReferences:
+  - apiVersion: example.blazehu.com/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: Tcaplus
+    name: tcaplus-sample
+    uid: 7c50f2e1-0e37-4aa0-bf49-c2d410d6153e
+  resourceVersion: "6837330713"
+  selfLink: /api/v1/namespaces/default/configmaps/tcaplus-configmap-example
+  uid: 6c29f90b-0e51-4d9f-a6a8-cfb6906ed1b0
 ```
 手动修改 tcaplus-sample 和 tcaplus-configmap-example 后查看控制器日志发现能正常观察 CR 和 ConfigMap 的变化了。
 
@@ -134,16 +144,16 @@ uid: 6c29f90b-0e51-4d9f-a6a8-cfb6906ed1b0
 api/v1/tcaplus_types.go
 ```
 type TcaplusSpec struct {
-Checksum string `json:"checksum,omitempty"`
-ConfigMapRef ConfigMapReference `json:"configMapRef,omitempty"`
+	Checksum     string             `json:"checksum,omitempty"`
+	ConfigMapRef ConfigMapReference `json:"configMapRef,omitempty"`
 }
 
 type ConfigMapReference struct {
-Name string `json:"name,omitempty"`
+	Name string `json:"name,omitempty"`
 }
 ```
 # 控制器逻辑 (Manage the Owned Resource)
-controllers/tcaplus_controller.go
+##### controllers/tcaplus_controller.go
 For 方法之后调用 Watches 方法就可以监听对应资源的事件，但是会监听集群里所有相关资源的事件，所以这里我们自定义事件处理方法来过滤出我们关注的资源的事件。
 
 •通过 EnqueueRequestsFromMapFunc 创建一个事件处理方法，该方法通过 FieldSelector 在 ConfigMap 的事件中过滤出跟 tcaplus CR 相关联的事件。

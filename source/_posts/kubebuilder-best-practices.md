@@ -1,5 +1,10 @@
 ---
 title: Kubebuilder Best Practices
+categories: 
+  - Kubebuilder
+tags:
+  - k8s
+sidebar: none 
 ---
 Kubebuilder is a framework for building Kubernetes APIs using custom resource definitions (CRDs).
 > Note: kubebuilder can save us a lot of work and make developing CRDs and adminsion webhooks incredibly easy.

@@ -18,19 +18,20 @@
   
   
   <title>Kubebuilder Webhook 开发之创建 TLS 证书 | 汪茫人海</title>
-  <meta name="description" content="Kubebuilder Webhook 开发之创建 TLS 证书 在编写一个准入 Webhook 服务时，需要配置相关证书，k8s 提供了 api 用于对用户自主创建的证书进行认证签发。以下部分演示为 Webhook 服务创建 TLS 证书。 创建 TLS 证书 创建你的证书 通过运行以下命令生成私钥: cat &lt;&lt;EOF | cfssl genkey - | cfssljson -b">
+  <meta name="description" content="在编写一个准入 Webhook 服务时，需要配置相关证书，k8s 提供了 api 用于对用户自主创建的证书进行认证签发。以下部分演示为 Webhook 服务创建 TLS 证书。  创建 TLS 证书  创建你的证书 通过运行以下命令生成私钥: 123456789101112131415cat &lt;&lt;EOF | cfssl genkey - | cfssljson -bare server">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kubebuilder Webhook 开发之创建 TLS 证书">
-<meta property="og:url" content="http://example.com/2023/05/23/kubebuilder-webhook/index.html">
+<meta property="og:url" content="https://marklinglon.github.io/2023/05/23/kubebuilder-webhook/index.html">
 <meta property="og:site_name" content="汪茫人海">
-<meta property="og:description" content="Kubebuilder Webhook 开发之创建 TLS 证书 在编写一个准入 Webhook 服务时，需要配置相关证书，k8s 提供了 api 用于对用户自主创建的证书进行认证签发。以下部分演示为 Webhook 服务创建 TLS 证书。 创建 TLS 证书 创建你的证书 通过运行以下命令生成私钥: cat &lt;&lt;EOF | cfssl genkey - | cfssljson -b">
+<meta property="og:description" content="在编写一个准入 Webhook 服务时，需要配置相关证书，k8s 提供了 api 用于对用户自主创建的证书进行认证签发。以下部分演示为 Webhook 服务创建 TLS 证书。  创建 TLS 证书  创建你的证书 通过运行以下命令生成私钥: 123456789101112131415cat &lt;&lt;EOF | cfssl genkey - | cfssljson -bare server">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-23T03:35:30.332Z">
-<meta property="article:modified_time" content="2023-05-23T03:46:40.746Z">
+<meta property="article:modified_time" content="2023-05-25T16:05:35.973Z">
 <meta property="article:author" content="mark long">
+<meta property="article:tag" content="k8s">
 <meta name="twitter:card" content="summary">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://example.com/2023/05/23/kubebuilder-webhook/index.html">
+  <link rel="canonical" href="https://marklinglon.github.io/2023/05/23/kubebuilder-webhook/index.html">
   
     <link rel="alternate" href="/atom.xml" title="汪茫人海" type="application/atom+xml">
   
@@ -41,13 +42,21 @@
 <link rel="stylesheet" href="/css/style.css">
 
   
+<link rel="stylesheet" href="/css/monokai-hook.css">
+
   
   
   
+    <link href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.css" rel="stylesheet">
+  
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs"></script>
+
 <meta name="generator" content="Hexo 6.3.0"></head>
 
 
-<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+<body class="main-center no-sidebar" itemscope itemtype="http://schema.org/WebPage">
   <header class="header" itemscope itemtype="http://schema.org/WPHeader">
   <div class="slimContent">
     <div class="navbar-header">
@@ -95,7 +104,7 @@
       </button>
     </div>
     <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
-      <ul class="nav navbar-nav main-nav ">
+      <ul class="nav navbar-nav main-nav menu-highlight">
         
         
         <li class="menu-item menu-item-home">
@@ -215,12 +224,33 @@
 
     
       
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Kubebuilder/">Kubebuilder</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/prometheux/">prometheux</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
 
     
       
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/" rel="tag">k8s</a><span class="tag-list-count">5</span></li></ul>
+    </div>
+  </div>
+
 
     
       
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/k8s/" style="font-size: 14px;">k8s</a>
+    </div>
+  </div>
+
     
       
   <div class="widget">
@@ -242,7 +272,7 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/prometheux/">prometheux</a>
               </p>
               <p class="item-title">
                 <a href="/2023/05/23/alertmanager/" class="title">Alertmanager</a>
@@ -257,7 +287,7 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/Kubebuilder/">Kubebuilder</a>
               </p>
               <p class="item-title">
                 <a href="/2023/05/23/kubebuilder-Admission-Webhooks/" class="title">Kubebuilder Admission Webhooks</a>
@@ -272,7 +302,7 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/Kubebuilder/">Kubebuilder</a>
               </p>
               <p class="item-title">
                 <a href="/2023/05/23/kubebuilder-watch-resources/" class="title">Kubebuilder Watch Rresources</a>
@@ -287,7 +317,7 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/Kubebuilder/">Kubebuilder</a>
               </p>
               <p class="item-title">
                 <a href="/2023/05/23/kubebuilder-best-practices/" class="title">Kubebuilder Best Practices</a>
@@ -302,7 +332,7 @@
             
             <div class="item-inner">
               <p class="item-category">
-                
+                <a class="category-link" href="/categories/Kubebuilder/">Kubebuilder</a>
               </p>
               <p class="item-title">
                 <a href="/2023/05/23/kubebuilder-webhook/" class="title">Kubebuilder Webhook 开发之创建 TLS 证书</a>
@@ -325,7 +355,10 @@
   
   
 <main class="main" role="main">
-  <div class="content">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css">
+<script src="https://cdn.jsdelivr.net/npm/prismjs"></script>
+
+<div class="content">
   <article id="post-kubebuilder-webhook" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
@@ -346,171 +379,106 @@
 	</a>
 </span>
         
-        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Kubebuilder/">Kubebuilder</a>
+  </span>
 
         
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/k8s/" rel="tag">k8s</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
 
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2023/05/23/kubebuilder-webhook/#comments" class="article-comment-link">评论</a></span>
         
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.3k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6(分)</span>
+	
+
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <p>Kubebuilder Webhook 开发之创建 TLS 证书<br />
-在编写一个准入 Webhook 服务时，需要配置相关证书，k8s 提供了 api 用于对用户自主创建的证书进行认证签发。以下部分演示为 Webhook 服务创建 TLS 证书。</p>
-<p>创建 TLS 证书<br />
-创建你的证书<br />
-通过运行以下命令生成私钥:</p>
-<p>cat &lt;&lt;EOF | cfssl genkey - | cfssljson -bare server<br />
-{<br />
-“hosts”: [<br />
-“my-svc.my-namespace.svc.cluster.local”,<br />
-“my-pod.my-namespace.pod.cluster.local”,<br />
-“192.0.2.24”,<br />
-“10.0.34.2”<br />
-],<br />
-“CN”: “my-pod.my-namespace.pod.cluster.local”,<br />
-“key”: {<br />
-“algo”: “ecdsa”,<br />
-“size”: 256<br />
-}<br />
-}<br />
-EOF</p>
+        <p>在编写一个准入 Webhook 服务时，需要配置相关证书，k8s 提供了 api 用于对用户自主创建的证书进行认证签发。以下部分演示为 Webhook 服务创建 TLS 证书。</p>
+<h1 id="创建-tls-证书"><a class="markdownIt-Anchor" href="#创建-tls-证书"></a> 创建 TLS 证书</h1>
+<h2 id="创建你的证书"><a class="markdownIt-Anchor" href="#创建你的证书"></a> 创建你的证书</h2>
+<p>通过运行以下命令生成私钥:</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF | <span class="type">cfssl</span> genkey - | <span class="type">cfssljson</span> -bare server</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;hosts&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;my-svc.my-namespace.svc.cluster.local&quot;</span>,</span><br><span class="line">    <span class="string">&quot;my-pod.my-namespace.pod.cluster.local&quot;</span>,</span><br><span class="line">    <span class="string">&quot;192.0.2.24&quot;</span>,</span><br><span class="line">    <span class="string">&quot;10.0.34.2&quot;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&quot;CN&quot;</span>: <span class="string">&quot;my-pod.my-namespace.pod.cluster.local&quot;</span>,</span><br><span class="line">  <span class="string">&quot;key&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;algo&quot;</span>: <span class="string">&quot;ecdsa&quot;</span>,</span><br><span class="line">    <span class="string">&quot;size&quot;</span>: <span class="number">256</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
 <p>此命令生成两个文件；它生成包含 PEM 编码 PKCS#10 证书请求的 server.csr， 以及 PEM 编码密钥的 server-key.pem，用于待生成的证书。</p>
-<p>创建证书签名请求（CSR）<br />
-cat &lt;&lt;EOF | kubectl apply -f -<br />
-apiVersion: <a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1beta1">certificates.k8s.io/v1beta1</a><br />
-kind: CertificateSigningRequest<br />
-metadata:<br />
-name: example<br />
-spec:<br />
-request: $(cat server.csr | base64 | tr -d ‘\n’)<br />
-usages:</p>
-<p>•digital signature<br />
-•key encipherment<br />
-•server auth<br />
-EOF</p>
+<h1 id="创建证书签名请求csr"><a class="markdownIt-Anchor" href="#创建证书签名请求csr"></a> 创建证书签名请求（CSR）</h1>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">cat &lt;&lt;EOF | kubectl apply -f -</span></span><br><span class="line"><span class="attribute">apiVersion</span><span class="punctuation">:</span> <span class="string">certificates.k8s.io/v1beta1</span></span><br><span class="line"><span class="attribute">kind</span><span class="punctuation">:</span> <span class="string">CertificateSigningRequest</span></span><br><span class="line"><span class="attribute">metadata</span><span class="punctuation">:</span></span><br><span class="line">  <span class="attribute">name</span><span class="punctuation">:</span> <span class="string">example</span></span><br><span class="line"><span class="attribute">spec</span><span class="punctuation">:</span></span><br><span class="line">  <span class="attribute">request</span><span class="punctuation">:</span> <span class="string">$(cat server.csr | base64 | tr -d &#x27;\n&#x27;)</span></span><br><span class="line">  <span class="attribute">usages</span><span class="punctuation">:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">digital signature</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">key encipherment</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">server auth</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
 <p>你能看到的输出类似于：</p>
-<p><a target="_blank" rel="noopener" href="http://certificatesigningrequest.certificates.k8s.io/example">certificatesigningrequest.certificates.k8s.io/example</a> created</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certificatesigningrequest<span class="selector-class">.certificates</span><span class="selector-class">.k8s</span>.io/example created</span><br></pre></td></tr></table></figure>
+<blockquote>
 <p>Warning: <a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1beta1">certificates.k8s.io/v1beta1</a> CertificateSigningRequest is deprecated in v1.19+, unavailable in v1.22+; use <a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1">certificates.k8s.io/v1</a> CertificateSigningRequest</p>
+</blockquote>
 <p>CSR 处于 Pending 状态。执行下面的命令你将可以看到：</p>
-<p>kubectl get csr</p>
-<p>NAME AGE SIGNERNAME REQUESTOR CONDITION<br />
-example 17s <a target="_blank" rel="noopener" href="http://kubernetes.io/legacy-unknown">kubernetes.io/legacy-unknown</a> 100015926370-1650441195 Pending</p>
-<p>批准证书签名请求（CSR）<br />
-kubectl certificate approve example</p>
-<p><a target="_blank" rel="noopener" href="http://certificatesigningrequest.certificates.k8s.io/example">certificatesigningrequest.certificates.k8s.io/example</a> approved</p>
-<p>你现在应该能看到如下输出：</p>
-<p>kubectl get csr</p>
-<p>NAME AGE SIGNERNAME REQUESTOR CONDITION<br />
-example 5m4s <a target="_blank" rel="noopener" href="http://kubernetes.io/legacy-unknown">kubernetes.io/legacy-unknown</a> 100015926370-1650441195 Approved,Issued</p>
-<p>下载证书并使用它<br />
-kubectl get csr example -o jsonpath=‘{.status.certificate}’ | base64 --decode &gt; server.crt</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl <span class="built_in">get</span> csr</span><br></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">NAME</span> AGE SIGNERNAME REQUESTOR CONDITION</span><br><span class="line"><span class="attribute">example</span> <span class="number">17</span>s kubernetes.io/legacy-unknown <span class="number">100015926370</span>-<span class="number">1650441195</span> Pending</span><br></pre></td></tr></table></figure>
+<h1 id="批准证书签名请求csr"><a class="markdownIt-Anchor" href="#批准证书签名请求csr"></a> 批准证书签名请求（CSR）</h1>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">kubectl certificate approve example</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certificatesigningrequest<span class="selector-class">.certificates</span><span class="selector-class">.k8s</span>.io/example approved</span><br></pre></td></tr></table></figure>
+<h1 id="你现在应该能看到如下输出"><a class="markdownIt-Anchor" href="#你现在应该能看到如下输出"></a> 你现在应该能看到如下输出：</h1>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl <span class="built_in">get</span> csr</span><br></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">NAME</span> AGE SIGNERNAME REQUESTOR CONDITION</span><br><span class="line"><span class="attribute">example</span> <span class="number">5</span>m4s kubernetes.io/legacy-unknown <span class="number">100015926370</span>-<span class="number">1650441195</span> Approved,Issued</span><br></pre></td></tr></table></figure>
+<h1 id="下载证书并使用它"><a class="markdownIt-Anchor" href="#下载证书并使用它"></a> 下载证书并使用它</h1>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl <span class="built_in">get</span> csr <span class="built_in">example</span> -o jsonpath=&#x27;&#123;.<span class="built_in">status</span>.certificate&#125;&#x27; | <span class="built_in">base64</span> --decode &gt; server.crt</span><br></pre></td></tr></table></figure>
 <p>现在你可以将 server.crt 和 server-key.pem 作为你的服务的 https 认证了。</p>
 <p>例如 kubebuilder 中使用 TLS 证书，将 server.crt 和 server-key.pem 放在 cert 目录中并修改名称为 tls.crt 和 tls.key，然后指定证书目录：</p>
-<p>mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{<br />
-Scheme: scheme,<br />
-MetricsBindAddress: metricsAddr,<br />
-Port: 9443,<br />
-HealthProbeBindAddress: probeAddr,<br />
-LeaderElection: enableLeaderElection,<br />
-LeaderElectionID: “<a target="_blank" rel="noopener" href="http://27e1b0af.blazehu.com">27e1b0af.blazehu.com</a>”,<br />
-CertDir: “./cert/”,<br />
-})</p>
-<p>从 v1beta1 迁移到 v1<br />
-上述例子使用 <a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1beta1">certificates.k8s.io/v1beta1</a> API 版本的 CertificateSigningRequest 不在 v1.22 版本中继续提供。官方迁移指南点这里。 我们可以使用 <a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1">certificates.k8s.io/v1</a> API 版本，此 API 从 v1.19 版本开始可用。</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options<span class="punctuation">&#123;</span></span><br><span class="line"><span class="symbol">    Scheme:</span>                 scheme,</span><br><span class="line"><span class="symbol">    MetricsBindAddress:</span>     metricsAddr,</span><br><span class="line"><span class="symbol">    Port:</span>                   <span class="number">9443</span>,</span><br><span class="line"><span class="symbol">    HealthProbeBindAddress:</span> probeAddr,</span><br><span class="line"><span class="symbol">    LeaderElection:</span>         enableLeaderElection,</span><br><span class="line"><span class="symbol">    LeaderElectionID:</span>       <span class="string">&quot;27e1b0af.blazehu.com&quot;</span>,</span><br><span class="line"><span class="symbol">    CertDir:</span>                <span class="string">&quot;./cert/&quot;</span>,</span><br><span class="line"><span class="punctuation">&#125;</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="从-v1beta1-迁移到-v1"><a class="markdownIt-Anchor" href="#从-v1beta1-迁移到-v1"></a> 从 v1beta1 迁移到 v1</h1>
+<p>上述例子使用 <a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1beta1">certificates.k8s.io/v1beta1</a> API 版本的 CertificateSigningRequest 不在 v1.22 版本中继续提供。官方迁移指南点这里。 我们可以使用 <a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1">certificates.k8s.io/v1</a> API 版本，此 API 从 v1.19 版本开始可用。</p>
 <p>•<a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1">certificates.k8s.io/v1</a> 中需要额外注意的变更：<br />
 •对于请求证书的 API 客户端而言：<br />
 •spec.signerName 现在变成必需字段（参阅 已知的 Kubernetes 签署者）， 并且通过 <a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1">certificates.k8s.io/v1</a> API 不可以创建签署者为 <a target="_blank" rel="noopener" href="http://kubernetes.io/legacy-unknown">kubernetes.io/legacy-unknown</a> 的请求<br />
 •spec.usages 现在变成必需字段，其中不可以包含重复的字符串值， 并且只能包含已知的用法字符串</p>
-<p>创建你的证书<br />
-通过运行以下命令生成私钥:</p>
-<p>cat &lt;&lt;EOF | cfssl genkey - | cfssljson -bare server<br />
-{<br />
-“hosts”: [<br />
-“my-svc.my-namespace.svc.cluster.local”,<br />
-“my-pod.my-namespace.pod.cluster.local”,<br />
-“192.0.2.24”,<br />
-“10.0.34.2”<br />
-],<br />
-“CN”: “my-pod.my-namespace.pod.cluster.local”,<br />
-“key”: {<br />
-“algo”: “ecdsa”,<br />
-“size”: 256<br />
-}<br />
-}<br />
-EOF</p>
-<p>创建证书签名请求（CSR）<br />
-这里 csr signerName 不能是 <a target="_blank" rel="noopener" href="http://kubernetes.io/legacy-unknown%EF%BC%8C%E6%BC%94%E7%A4%BA%E6%88%91%E4%BB%AC%E9%9A%8F%E4%BE%BF%E6%8C%87%E5%AE%9A%E4%B8%80%E4%B8%AA%E4%B8%BA">kubernetes.io/legacy-unknown，演示我们随便指定一个为</a> <a href="http://example.com/serving%EF%BC%8Cv1beta1">example.com/serving，v1beta1</a> 版本默认是 <a target="_blank" rel="noopener" href="http://kubernetes.io/legacy-unknown%E3%80%82">kubernetes.io/legacy-unknown。</a></p>
-<p>cat &lt;&lt;EOF | kubectl apply -f -<br />
-apiVersion: <a target="_blank" rel="noopener" href="http://certificates.k8s.io/v1">certificates.k8s.io/v1</a><br />
-kind: CertificateSigningRequest<br />
-metadata:<br />
-name: example<br />
-spec:<br />
-request: $(cat server.csr | base64 | tr -d ‘\n’)<br />
-signerName: <a href="http://example.com/serving">example.com/serving</a><br />
-usages:</p>
-<p>•digital signature<br />
-•key encipherment<br />
-•server auth<br />
-EOF</p>
-<p>批准证书签名请求（CSR）<br />
-kubectl certificate approve example</p>
-<p><a target="_blank" rel="noopener" href="http://certificatesigningrequest.certificates.k8s.io/example">certificatesigningrequest.certificates.k8s.io/example</a> approved</p>
+<h1 id="创建你的证书-2"><a class="markdownIt-Anchor" href="#创建你的证书-2"></a> 创建你的证书</h1>
+<p>通过运行以下命令生成私钥:</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF | <span class="type">cfssl</span> genkey - | <span class="type">cfssljson</span> -bare server</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;hosts&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;my-svc.my-namespace.svc.cluster.local&quot;</span>,</span><br><span class="line">    <span class="string">&quot;my-pod.my-namespace.pod.cluster.local&quot;</span>,</span><br><span class="line">    <span class="string">&quot;192.0.2.24&quot;</span>,</span><br><span class="line">    <span class="string">&quot;10.0.34.2&quot;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&quot;CN&quot;</span>: <span class="string">&quot;my-pod.my-namespace.pod.cluster.local&quot;</span>,</span><br><span class="line">  <span class="string">&quot;key&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;algo&quot;</span>: <span class="string">&quot;ecdsa&quot;</span>,</span><br><span class="line">    <span class="string">&quot;size&quot;</span>: <span class="number">256</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h1 id="创建证书签名请求csr-2"><a class="markdownIt-Anchor" href="#创建证书签名请求csr-2"></a> 创建证书签名请求（CSR）</h1>
+<p>这里 csr signerName 不能是 <a target="_blank" rel="noopener" href="http://kubernetes.io/legacy-unknown%EF%BC%8C%E6%BC%94%E7%A4%BA%E6%88%91%E4%BB%AC%E9%9A%8F%E4%BE%BF%E6%8C%87%E5%AE%9A%E4%B8%80%E4%B8%AA%E4%B8%BA">kubernetes.io/legacy-unknown，演示我们随便指定一个为</a> <a target="_blank" rel="noopener" href="http://example.com/serving%EF%BC%8Cv1beta1">example.com/serving，v1beta1</a> 版本默认是 <a target="_blank" rel="noopener" href="http://kubernetes.io/legacy-unknown%E3%80%82">kubernetes.io/legacy-unknown。</a></p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">cat &lt;&lt;EOF | kubectl apply -f -</span></span><br><span class="line"><span class="attribute">apiVersion</span><span class="punctuation">:</span> <span class="string">certificates.k8s.io/v1</span></span><br><span class="line"><span class="attribute">kind</span><span class="punctuation">:</span> <span class="string">CertificateSigningRequest</span></span><br><span class="line"><span class="attribute">metadata</span><span class="punctuation">:</span></span><br><span class="line">  <span class="attribute">name</span><span class="punctuation">:</span> <span class="string">example</span></span><br><span class="line"><span class="attribute">spec</span><span class="punctuation">:</span></span><br><span class="line">  <span class="attribute">request</span><span class="punctuation">:</span> <span class="string">$(cat server.csr | base64 | tr -d &#x27;\n&#x27;)</span></span><br><span class="line">  <span class="attribute">signerName</span><span class="punctuation">:</span> <span class="string">example.com/serving</span></span><br><span class="line">  <span class="attribute">usages</span><span class="punctuation">:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">digital signature</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">key encipherment</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">server auth</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h1 id="批准证书签名请求csr-2"><a class="markdownIt-Anchor" href="#批准证书签名请求csr-2"></a> 批准证书签名请求（CSR）</h1>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">kubectl certificate approve example</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certificatesigningrequest<span class="selector-class">.certificates</span><span class="selector-class">.k8s</span>.io/example approved</span><br></pre></td></tr></table></figure>
 <p>你现在应该能看到如下输出：</p>
-<p>kubectl get csr</p>
-<p>NAME AGE SIGNERNAME REQUESTOR CONDITION<br />
-example 11s <a href="http://example.com/serving">example.com/serving</a> 100015926370-1650441195 Approved</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl <span class="built_in">get</span> csr</span><br></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">NAME</span> AGE SIGNERNAME REQUESTOR CONDITION</span><br><span class="line"><span class="attribute">example</span> <span class="number">11</span>s example.com/serving <span class="number">100015926370</span>-<span class="number">1650441195</span> Approved</span><br></pre></td></tr></table></figure>
 <p>这里可以看到证书请求已被批准，但是没有自动签名，正在等待请求的签名者对其签名。</p>
-<p>签名证书签名请求（CSR）<br />
-我们扮演证书签署者的角色，颁发证书并将其上传到 API 服务器。</p>
-<p>创建证书颁发机构<br />
-通过运行以下命令创建签名证书:</p>
-<p>cat &lt;&lt;EOF | cfssl gencert -initca - | cfssljson -bare ca<br />
-{<br />
-“CN”: “<a href="http://example.com/serving">example.com/serving</a>”,<br />
-“key”: {<br />
-“algo”: “rsa”,<br />
-“size”: 2048<br />
-}<br />
-}<br />
-EOF</p>
+<h1 id="签名证书签名请求csr"><a class="markdownIt-Anchor" href="#签名证书签名请求csr"></a> 签名证书签名请求（CSR）</h1>
+<p>我们扮演证书签署者的角色，颁发证书并将其上传到 API 服务器。</p>
+<h2 id="创建证书颁发机构"><a class="markdownIt-Anchor" href="#创建证书颁发机构"></a> 创建证书颁发机构</h2>
+<p>通过运行以下命令创建签名证书:</p>
+<figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt;EOF | <span class="type">cfssl</span> gencert -initca - | <span class="type">cfssljson</span> -bare ca</span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;CN&quot;</span>: <span class="string">&quot;example.com/serving&quot;</span>,</span><br><span class="line">  <span class="string">&quot;key&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;algo&quot;</span>: <span class="string">&quot;rsa&quot;</span>,</span><br><span class="line">    <span class="string">&quot;size&quot;</span>: <span class="number">2048</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
 <p>这会产生一个证书颁发机构密钥文件（ca-key.pem）和证书（ca.pem）。</p>
-<p>颁发证书<br />
-创建文件 server-signing-config.json 内容如下：</p>
-<p>{<br />
-“signing”: {<br />
-“default”: {<br />
-“usages”: [<br />
-“digital signature”,<br />
-“key encipherment”,<br />
-“server auth”<br />
-],<br />
-“expiry”: “876000h”,<br />
-“ca_constraint”: {<br />
-“is_ca”: false<br />
-}<br />
-}<br />
-}<br />
-}</p>
+<h2 id="颁发证书"><a class="markdownIt-Anchor" href="#颁发证书"></a> 颁发证书</h2>
+<p>创建文件 server-signing-config.json 内容如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;signing&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;default&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;usages&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;digital signature&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;key encipherment&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;server auth&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;expiry&quot;</span><span class="punctuation">:</span> <span class="string">&quot;876000h&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;ca_constraint&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;is_ca&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 <p>使用 server-signing-config.json 签名配置、证书颁发机构密钥文件和证书来签署证书请求：</p>
-<p>kubectl get csr example -o jsonpath=‘{.spec.request}’ | <br />
-base64 --decode | <br />
-cfssl sign -ca ca.pem -ca-key ca-key.pem -config server-signing-config.json - | <br />
-cfssljson -bare ca-signed-server</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl <span class="built_in">get</span> csr example -<span class="keyword">o</span> jsonpath=<span class="string">&#x27;&#123;.spec.request&#125;&#x27;</span> | \</span><br><span class="line">base64 --decode | \</span><br><span class="line">cfssl <span class="keyword">sign</span> -<span class="keyword">ca</span> <span class="keyword">ca</span>.pem -<span class="keyword">ca</span>-key <span class="keyword">ca</span>-key.pem -config server-signing-config.json - | \</span><br><span class="line">cfssljson -bare <span class="keyword">ca</span>-signed-server</span><br></pre></td></tr></table></figure>
 <p>这会生成一个签名的服务证书文件，ca-signed-server.pem。</p>
-<p>上传签名证书<br />
-kubectl get csr example -o json | <br />
-jq ‘.status.certificate = &quot;’$(base64 ca-signed-server.pem | tr -d ‘\n’)‘&quot;’ | <br />
-kubectl replace --raw /apis/certificates.k8s.io/v1/certificatesigningrequests/example/status -f -</p>
+<h2 id="上传签名证书"><a class="markdownIt-Anchor" href="#上传签名证书"></a> 上传签名证书</h2>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl get csr example -o json | \</span><br><span class="line">jq <span class="string">&#x27;.status.certificate = &quot;&#x27;</span>$(base64 ca-signed-server.pem | tr -d <span class="string">&#x27;\n&#x27;</span>)<span class="string">&#x27;&quot;&#x27;</span> | \</span><br><span class="line">kubectl replace --raw <span class="regexp">/apis/</span>certificates.k8s.io<span class="regexp">/v1/</span>certificatesigningrequests<span class="regexp">/example/</span>status -f -</span><br></pre></td></tr></table></figure>
 <p>批准 CSR 并上传签名证书后，你现在应该能看到如下输出：</p>
-<p>kubectl get csr</p>
-<p>NAME AGE SIGNERNAME REQUESTOR CONDITION<br />
-example 10m <a href="http://example.com/serving">example.com/serving</a> 100015926370-1650441195 Approved,Issued</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl <span class="built_in">get</span> csr</span><br></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">NAME</span> AGE SIGNERNAME REQUESTOR CONDITION</span><br><span class="line"><span class="attribute">example</span> <span class="number">10</span>m example.com/serving <span class="number">100015926370</span>-<span class="number">1650441195</span> Approved,Issued</span><br></pre></td></tr></table></figure>
 <p>这是你可以正常下载证书并使用它了。</p>
-<p>参考文档<br />
-•<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/">https://kubernetes.io/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/</a><br />
+<h1 id="参考文档"><a class="markdownIt-Anchor" href="#参考文档"></a> 参考文档</h1>
+<p>•<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/">https://kubernetes.io/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/</a><br />
 •<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/#configuring-your-cluster-to-provide-signing">https://kubernetes.io/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/#configuring-your-cluster-to-provide-signing</a><br />
 •<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/reference/using-api/deprecation-guide/">https://kubernetes.io/zh-cn/docs/reference/using-api/deprecation-guide/</a></p>
 
@@ -522,7 +490,7 @@ example 10m <a href="http://example.com/serving">example.com/serving</a> 1000159
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2023/05/23/kubebuilder-webhook/" title="Kubebuilder Webhook 开发之创建 TLS 证书" target="_blank" rel="external">http://example.com/2023/05/23/kubebuilder-webhook/</a>
+      <a href="https://marklinglon.github.io/2023/05/23/kubebuilder-webhook/" title="Kubebuilder Webhook 开发之创建 TLS 证书" target="_blank" rel="external">https://marklinglon.github.io/2023/05/23/kubebuilder-webhook/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -704,6 +672,8 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
    
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
 
 
 
@@ -726,6 +696,35 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.3.5/dist/jquery.fancybox.min.js"></script>
+  <script>
+  //利用 FancyBox 实现点击图片放大
+  $(document).ready(function() {
+    $('article img').not('[hidden]').not('.panel-body img').each(function() {
+      var $image = $(this);
+      var imageCaption = $image.attr('alt');
+      var $imageWrapLink = $image.parent('a');
+      if ($imageWrapLink.length < 1) {
+        var src = this.getAttribute('src');
+        var idx = src.lastIndexOf('?');
+        if (idx != -1) {
+          src = src.substring(0, idx);
+        }
+        $imageWrapLink = $image.wrap('<a href="' + src + '"></a>').parent('a');
+      }
+      $imageWrapLink.attr('data-fancybox', 'images');
+      if (imageCaption) {
+        $imageWrapLink.attr('data-caption', imageCaption);
+      }
+    });
+    $().fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+    });
+  });
+  </script>
 
 
 
