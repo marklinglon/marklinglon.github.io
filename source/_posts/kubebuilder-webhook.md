@@ -79,7 +79,7 @@ MetricsBindAddress: metricsAddr,
 Port: 9443,
 HealthProbeBindAddress: probeAddr,
 LeaderElection: enableLeaderElection,
-LeaderElectionID: "27e1b0af.blazehu.com",
+LeaderElectionID: "27e1b0af.marklu.com",
 CertDir: "./cert/",
 })
 

@@ -65,7 +65,7 @@ type BucketSpec struct {
 ```
 
 # Implementing a controller
->controllers/cos.go
+>controllers/cos.go 
 ```
 package controllers
 

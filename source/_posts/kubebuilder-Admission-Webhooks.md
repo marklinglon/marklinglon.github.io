@@ -1,36 +1,35 @@
 ---
 title: Kubebuilder Admission Webhooks
 ---
-Kubebuilder Admission Webhooks
-1. 什么是准入控制?
+# 什么是准入控制?
 准入控制（Admission Controller）是 Kubernetes API Server 用于拦截请求的一种手段。Admission 可以做到对请求的资源对象进行校验，修改。service mesh 最近很火的项目 Istio 天生支持 Kubernetes，利用的就是 Admission 对服务实例自动注入 sidecar。
 
-2. 什么是准入 Webhook？
+# 什么是准入 Webhook？
 准入 Webhook 是一种用于接收准入请求并对其进行处理的 HTTP 回调机制。 可以定义两种类型的准入 webhook，即 验证性质的准入 Webhook 和 修改性质的准入 Webhook。修改性质的准入 Webhook 会先被调用。它们可以更改发送到 API 服务器的对象以执行自定义的设置默认值操作。
 
 在完成了所有对象修改并且 API 服务器也验证了所传入的对象之后， 验证性质的 Webhook 会被调用，并通过拒绝请求的方式来强制实施自定义的策略。
 
-说明： 如果准入 Webhook 需要保证它们所看到的是对象的最终状态以实施某种策略。 则应使用验证性质的准入 Webhook，因为对象被修改性质 Webhook 看到之后仍然可能被修改。
+> 说明： 如果准入 Webhook 需要保证它们所看到的是对象的最终状态以实施某种策略。 则应使用验证性质的准入 Webhook，因为对象被修改性质 Webhook 看到之后仍然可能被修改。
+![图片](/images/webhook1.jpeg)
 
-
-3. 尝试准入 Webhook
+# 尝试准入 Webhook
 先决条件
 •确保 Kubernetes 集群版本至少为 v1.16（以便使用 admissionregistration.k8s.io/v1 API） 或者 v1.9 （以便使 admissionregistration.k8s.io/v1beta1 API）。
 •确保启用 MutatingAdmissionWebhook 和 ValidatingAdmissionWebhook 控制器。 这里是一组推荐的 admission 控制器，通常可以启用。
 •确保启用了 admissionregistration.k8s.io/v1beta1 API。
 
-4. 配置准入 Webhook
+# 配置准入 Webhook
 你可以通过 ValidatingWebhookConfiguration 或者 MutatingWebhookConfiguration 动态配置哪些资源要被哪些准入 Webhook 处理。详细配置可以参阅 Webhook配置 部分。
 
-5. 认证和信任
+# 认证和信任
 默认情况下，apiserver不会向webhooks进行身份验证。但是，如果您想对客户端进行身份验证，可以将apiserver配置为使用基本身份验证、承载令牌或证书对Webhook进行身份验证。你可以在这里找到详细的步骤。
 
-6. 编写一个准入 Webhook 服务器
+# 编写一个准入 Webhook 服务器
 Webhook Admission 属于同步调用，需要用户部署自己的 webhook server，创建自定义的配置资源对象： ValidatingWebhookConfiguration 或 MutatingWebhookConfiguration。下面使用 kubebuilder 开发一个简单的 demo。
 
 6.1 创建项目
 ```
-kubebuilder init --domain blazehu.com --owner "blazehu" --repo blazehu.com/kubegame
+kubebuilder init --domain marklu.com --owner "marklu" --repo marklu.com/kubegame
 ```
 
 提示： 这里通过 kubebuilder v3 创建的话，在 config 目录下会缺少 certmanager、webhook 目录以及 default/manager_webhook_patch.yml 和 webhookcainjection_patch.yaml 文件。可以通过从v2生成拷贝过来进行修改。
@@ -172,7 +171,7 @@ MetricsBindAddress: metricsAddr,
 Port: 9443,
 HealthProbeBindAddress: probeAddr,
 LeaderElection: enableLeaderElection,
-LeaderElectionID: "27e1b0af.blazehu.com",
+LeaderElectionID: "27e1b0af.marklu.com",
 CertDir: "./cert/",
 })
 ```

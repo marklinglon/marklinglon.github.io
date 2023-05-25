@@ -37,9 +37,10 @@ $ hexo deploy
 ```
 
 ## 参考链接
- 
+
 ```
 https://blog.cofess.com/2017/11/01/hexo-blog-theme-pure-usage-description.html // 部署文档
 http://blog.iwwee.com/posts/hexo-optimize.html // 优化
+https://hexo.io/zh-cn/docs/syntax-highlight.html // 代码高亮
 ```
 More info: [Deployment](https://hexo.io/docs/one-command-deployment.html)
