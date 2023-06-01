@@ -5,6 +5,7 @@ categories:
 tags:
   - k8s
 sidebar: none 
+date: 2020-06-21
 ---
 在编写一个准入 Webhook 服务时，需要配置相关证书，k8s 提供了 api 用于对用户自主创建的证书进行认证签发。以下部分演示为 Webhook 服务创建 TLS 证书。
 

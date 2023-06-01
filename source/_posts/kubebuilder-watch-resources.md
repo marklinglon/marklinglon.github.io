@@ -5,6 +5,7 @@ categories:
 tags:
   - k8s
 sidebar: none 
+date: 2020-06-21
 ---
 我们在开发过程中，可能需要开发一个类似Deployment的资源逻辑，管理依赖资源是控制器的基础，如果不能观察它们的状态变化就不可能管理它们。这就意味着，我们需要 reconciler 能监控多个资源的变化。
 

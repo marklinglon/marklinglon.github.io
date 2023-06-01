@@ -5,6 +5,7 @@ categories:
 tags:
   - k8s
 sidebar: none 
+date: 2020-06-21
 ---
 # 什么是准入控制?
 准入控制（Admission Controller）是 Kubernetes API Server 用于拦截请求的一种手段。Admission 可以做到对请求的资源对象进行校验，修改。service mesh 最近很火的项目 Istio 天生支持 Kubernetes，利用的就是 Admission 对服务实例自动注入 sidecar。

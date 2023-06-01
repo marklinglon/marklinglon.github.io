@@ -5652,11 +5652,11 @@ pre code {
 
 .header {
   background: linear-gradient(to right,#08a283 0,#0ac29d 80%,#0ac29d 100%);
-  color: white;
+  color: rgb(16, 15, 15);
 }
 
 .sidebar {
-  background-color: #fdfdfd;
+  background-color: #ffffff;
 }
 
 .sidebar .slimContent {
@@ -8856,7 +8856,7 @@ body.okayNav-loaded {
   #main-navbar {
     position: absolute;
     width: 100%;
-    background-color: #fbfbfb;
+    background-color: #1fb395;
     border-bottom: 1px solid #f6f6f6;
     z-index: 99;
   }

@@ -5,6 +5,7 @@ categories:
 tags:
   - k8s
 sidebar: none 
+date: 2020-06-21
 ---
 Kubebuilder is a framework for building Kubernetes APIs using custom resource definitions (CRDs).
 > Note: kubebuilder can save us a lot of work and make developing CRDs and adminsion webhooks incredibly easy.
