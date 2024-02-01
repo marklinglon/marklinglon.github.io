@@ -1,3 +1,9 @@
+https://marklinglon.github.io/2024/01/21/redis%E9%9D%A2%E8%AF%95%E9%A2%98/
+https://marklinglon.github.io/2021/01/21/redis/
+https://marklinglon.github.io/2021/01/21/gitops/
+https://marklinglon.github.io/2021/01/21/java-memory/
+https://marklinglon.github.io/2021/01/21/argo-cd/
+https://marklinglon.github.io/2021/01/21/elastic%E9%9D%A2%E8%AF%95%E9%A2%98/
 https://marklinglon.github.io/2018/05/21/alertmanager/
 https://marklinglon.github.io/2023/05/21/jumpserver/
 https://marklinglon.github.io/2022/03/21/share/
@@ -21,6 +27,10 @@ https://marklinglon.github.io/tags/hexo/
 https://marklinglon.github.io/tags/keypass/
 https://marklinglon.github.io/tags/gpt/
 https://marklinglon.github.io/tags/jumpserer/
+https://marklinglon.github.io/tags/gitops/
+https://marklinglon.github.io/tags/java/
+https://marklinglon.github.io/tags/redis/
+https://marklinglon.github.io/tags/elastic/
 https://marklinglon.github.io/categories/Kubebuilder/
 https://marklinglon.github.io/categories/hexo/
 https://marklinglon.github.io/categories/prometheux/
@@ -28,3 +38,8 @@ https://marklinglon.github.io/categories/keypass/
 https://marklinglon.github.io/categories/gpt/
 https://marklinglon.github.io/categories/k8s/
 https://marklinglon.github.io/categories/jumpserver/
+https://marklinglon.github.io/categories/gitops/
+https://marklinglon.github.io/categories/java/
+https://marklinglon.github.io/categories/redis/
+https://marklinglon.github.io/categories/elastic/
+https://marklinglon.github.io/categories/mianshiti/
