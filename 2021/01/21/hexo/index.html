@@ -17,16 +17,16 @@
   <meta http-equiv="window-target" content="_top" />
   
   
-  <title>hexo部署文档 | Hexo</title>
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.  Quic">
+  <title>hexo部署使用 | Hexo</title>
+  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.  部署过程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo部署文档">
+<meta property="og:title" content="hexo部署使用">
 <meta property="og:url" content="https://marklinglon.github.io/2021/01/21/hexo/index.html">
 <meta property="og:site_name" content="汪茫人海">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.  Quic">
+<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.  部署过程">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-01-20T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-02-01T08:17:24.100Z">
+<meta property="article:modified_time" content="2024-02-01T09:09:23.809Z">
 <meta property="article:author" content="mark long">
 <meta property="article:tag" content="hexo">
 <meta name="twitter:card" content="summary">
@@ -324,10 +324,10 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/elastic/">elastic</a>
+                <a class="category-link" href="/categories/gitops/">gitops</a>
               </p>
               <p class="item-title">
-                <a href="/2021/01/21/elastic%E9%9D%A2%E8%AF%95%E9%A2%98/" class="title">Elasticsearch常见面试题</a>
+                <a href="/2021/01/21/argo-cd/" class="title">ArgoCD</a>
               </p>
               <p class="item-date">
                 <time datetime="2021-01-20T16:00:00.000Z" itemprop="datePublished">2021-01-21</time>
@@ -355,7 +355,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      hexo部署文档
+      hexo部署使用
     </h1>
   
 
@@ -389,22 +389,15 @@
     <div class="article-entry marked-body" itemprop="articleBody">
       
         <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="quick-start"><a class="markdownIt-Anchor" href="#quick-start"></a> Quick Start</h2>
-<h3 id="create-a-new-post"><a class="markdownIt-Anchor" href="#create-a-new-post"></a> Create a new post</h3>
+<h2 id="部署过程参考链接"><a class="markdownIt-Anchor" href="#部署过程参考链接"></a> 部署过程参考链接</h2>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//</span>blog.cofess.com<span class="regexp">/2017/</span><span class="number">11</span><span class="regexp">/01/</span>hexo-blog-theme-pure-usage-description.html <span class="regexp">//</span> 部署文档</span><br><span class="line">http:<span class="regexp">//</span>blog.iwwee.com<span class="regexp">/posts/</span>hexo-optimize.html <span class="regexp">//</span> 优化</span><br><span class="line">https:<span class="regexp">//</span>hexo.io<span class="regexp">/zh-cn/</span>docs<span class="regexp">/syntax-highlight.html /</span><span class="regexp">/ 代码高亮</span></span><br></pre></td></tr></table></figure>
+<h2 id="create-article-in-dir-source_posts"><a class="markdownIt-Anchor" href="#create-article-in-dir-source_posts"></a> create article in dir source/_posts</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
 <h3 id="run-server"><a class="markdownIt-Anchor" href="#run-server"></a> Run server</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files"><a class="markdownIt-Anchor" href="#generate-static-files"></a> Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
 <h3 id="deploy-to-remote-sites"><a class="markdownIt-Anchor" href="#deploy-to-remote-sites"></a> Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># deploy前先删除public目录</span></span><br><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<h2 id="参考链接"><a class="markdownIt-Anchor" href="#参考链接"></a> 参考链接</h2>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https:<span class="regexp">//</span>blog.cofess.com<span class="regexp">/2017/</span><span class="number">11</span><span class="regexp">/01/</span>hexo-blog-theme-pure-usage-description.html <span class="regexp">//</span> 部署文档</span><br><span class="line">http:<span class="regexp">//</span>blog.iwwee.com<span class="regexp">/posts/</span>hexo-optimize.html <span class="regexp">//</span> 优化</span><br><span class="line">https:<span class="regexp">//</span>hexo.io<span class="regexp">/zh-cn/</span>docs<span class="regexp">/syntax-highlight.html /</span><span class="regexp">/ 代码高亮</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean ;hexo generate;hexo deploy</span><br></pre></td></tr></table></figure>
       
     </div>
     <div class="article-footer">
@@ -413,7 +406,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="https://marklinglon.github.io/2021/01/21/hexo/" title="hexo部署文档" target="_blank" rel="external">https://marklinglon.github.io/2021/01/21/hexo/</a>
+      <a href="https://marklinglon.github.io/2021/01/21/hexo/" title="hexo部署使用" target="_blank" rel="external">https://marklinglon.github.io/2021/01/21/hexo/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -460,12 +453,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2021/01/21/gitops/" title="GitOps"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2021/01/21/argo-cd/" title="ArgoCD"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2021/01/21/java-memory/" title="Java 内存"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2021/01/21/gitops/" title="GitOps"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
