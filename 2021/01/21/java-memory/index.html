@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>Java 内存 | Hexo</title>
+  <meta name="description" content="一、引言 为什么 Java 进程的实际物理内存使用量比 -Xmx 指定的 Max Heap size 大？ 为什么 Java NMT 显示的 committed 内存值比RSS值小(或者大)？ 是否有办法能限制一个 Java 进程的内存使用么？ 怎么排查 Java 进程内存问题？ …  二、Linux 内存管理 2.1 Linux 内存概念解析 RSS(RES): Resident Set Si">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 内存">
+<meta property="og:url" content="https://marklinglon.github.io/2021/01/21/java-memory/index.html">
+<meta property="og:site_name" content="汪茫人海">
+<meta property="og:description" content="一、引言 为什么 Java 进程的实际物理内存使用量比 -Xmx 指定的 Max Heap size 大？ 为什么 Java NMT 显示的 committed 内存值比RSS值小(或者大)？ 是否有办法能限制一个 Java 进程的内存使用么？ 怎么排查 Java 进程内存问题？ …  二、Linux 内存管理 2.1 Linux 内存概念解析 RSS(RES): Resident Set Si">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://marklinglon.github.io/images/java/1.png">
+<meta property="og:image" content="https://marklinglon.github.io/images/java/2.png">
+<meta property="og:image" content="https://marklinglon.github.io/images/java/3.png">
+<meta property="og:image" content="https://marklinglon.github.io/images/java/4.png">
+<meta property="og:image" content="https://marklinglon.github.io/images/java/5.png">
+<meta property="og:image" content="https://marklinglon.github.io/images/java/6.png">
+<meta property="og:image" content="https://marklinglon.github.io/images/java/7.png">
+<meta property="og:image" content="https://marklinglon.github.io/images/java/8.png">
+<meta property="og:image" content="https://marklinglon.github.io/images/java/9.png">
+<meta property="og:image" content="https://marklinglon.github.io/images/java/10.png">
+<meta property="og:image" content="https://marklinglon.github.io/images/java/11.png">
+<meta property="article:published_time" content="2021-01-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-02-01T08:17:24.100Z">
+<meta property="article:author" content="mark long">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://marklinglon.github.io/images/java/1.png">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://marklinglon.github.io/2021/01/21/java-memory/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="汪茫人海" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body class="main-center no-sidebar" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/cofess" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Amos</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Web Developer &amp; Operation &amp; Devops &amp; SRE</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Kubebuilder/">Kubebuilder</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/elastic/">elastic</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gitops/">gitops</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gpt/">gpt</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jumpserver/">jumpserver</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/k8s/">k8s</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/keypass/">keypass</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mianshiti/">mianshiti</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/prometheux/">prometheux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/redis/">redis</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/elastic/" rel="tag">elastic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitops/" rel="tag">gitops</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gpt/" rel="tag">gpt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jumpserer/" rel="tag">jumpserer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/" rel="tag">k8s</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keypass/" rel="tag">keypass</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/elastic/" style="font-size: 13px;">elastic</a> <a href="/tags/gitops/" style="font-size: 13.5px;">gitops</a> <a href="/tags/gpt/" style="font-size: 13px;">gpt</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/jumpserer/" style="font-size: 13px;">jumpserer</a> <a href="/tags/k8s/" style="font-size: 14px;">k8s</a> <a href="/tags/keypass/" style="font-size: 13px;">keypass</a> <a href="/tags/redis/" style="font-size: 13.5px;">redis</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/mianshiti/">mianshiti</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/01/21/redis%E9%9D%A2%E8%AF%95%E9%A2%98/" class="title">Redis面试题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-01-20T16:00:00.000Z" itemprop="datePublished">2024-01-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/jumpserver/">jumpserver</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/05/21/jumpserver/" class="title">jumpserver问题处理</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-05-20T16:00:00.000Z" itemprop="datePublished">2023-05-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/gpt/">gpt</a>
+              </p>
+              <p class="item-title">
+                <a href="/2023/05/21/wechatgpt/" class="title">wechat gpt</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2023-05-20T16:00:00.000Z" itemprop="datePublished">2023-05-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/k8s/">k8s</a>
+              </p>
+              <p class="item-title">
+                <a href="/2022/03/21/share/" class="title">K8s文章分享</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2022-03-20T16:00:00.000Z" itemprop="datePublished">2022-03-21</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/elastic/">elastic</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/01/21/elastic%E9%9D%A2%E8%AF%95%E9%A2%98/" class="title">Elasticsearch常见面试题</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-01-20T16:00:00.000Z" itemprop="datePublished">2021-01-21</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-java-memory" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java 内存
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/01/21/java-memory/" class="article-date">
+	  <time datetime="2021-01-20T16:00:00.000Z" itemprop="datePublished">2021-01-21</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/java/">java</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/java/" rel="tag">java</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/01/21/java-memory/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h3 id="一-引言"><a class="markdownIt-Anchor" href="#一-引言"></a> 一、引言</h3>
+<p>为什么 Java 进程的实际物理内存使用量比 -Xmx 指定的 Max Heap size 大？</p>
+<p>为什么 Java NMT 显示的 committed 内存值比RSS值小(或者大)？</p>
+<p>是否有办法能限制一个 Java 进程的内存使用么？</p>
+<p>怎么排查 Java 进程内存问题？</p>
+<p>…</p>
+<h3 id="二-linux-内存管理"><a class="markdownIt-Anchor" href="#二-linux-内存管理"></a> 二、Linux 内存管理</h3>
+<p>2.1 Linux 内存概念解析</p>
+<p>RSS(RES): Resident Set Size. 进程实际物理内存使用大小。</p>
+<p>VIRT:Virtual memory used by the task, it includes all code, data and shared libraries plus pages that have been swapped out and pages that have been mapped but not used. 进程的虚拟内存使用，包括该进程的代码，数据段，共享lib 以及 swap 出磁盘的内存。一般情况下，不用特别关注该指标，VIRT并不意味着物理内存。（64-bit的操作系统，虚拟地址空间大小为128T，可近似认为&quot;无限&quot;；32-bit的操作系统，虚拟空间大小为2G）</p>
+<p>Buffer: 对磁盘数据的缓存，既可以用在写，也可以用在读。</p>
+<p>Cache:  对文件数据的缓存，既可以用在写，也可以用在读。</p>
+<p>2.2 Linux 内存分配</p>
+<p>一般 Unix 系统中，用户态的程序通过malloc()调用申请内存。如果返回值是 NULL， 说明此时操作系统没有空闲内存。这种情况下，用户程序可以选择直接退出并打印异常信息或尝试进行 GC 回收内存。然而 Linux 系统总会先满足用户程序malloc请求，并分配一片虚拟内存地址。只有在程序第一次touch到这片内存时，操作系统才会分配物理内存给进程。具体我们可以看下如下demo:</p>
+<p>1.调用 malloc，但不touch：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span> <span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">      <span class="type">int</span> n = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">              <span class="keyword">if</span> (<span class="built_in">malloc</span>(<span class="number">1</span>&lt;&lt;<span class="number">20</span>) == <span class="literal">NULL</span>) &#123;</span><br><span class="line">                      <span class="built_in">printf</span>(<span class="string">&quot;malloc failure after %d MiB\n&quot;</span>, n);</span><br><span class="line">                      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="built_in">printf</span> (<span class="string">&quot;got %d MiB\n&quot;</span>, ++n);</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>调用 malloc，并touch：</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span> <span class="params">(<span class="type">void</span>)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = <span class="number">0</span>;</span><br><span class="line">        <span class="type">char</span> *p;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> ((p = <span class="built_in">malloc</span>(<span class="number">1</span>&lt;&lt;<span class="number">20</span>)) == <span class="literal">NULL</span>) &#123;</span><br><span class="line">                        <span class="built_in">printf</span>(<span class="string">&quot;malloc failure after %d MiB\n&quot;</span>, n);</span><br><span class="line">                        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="built_in">memset</span> (p, <span class="number">0</span>, (<span class="number">1</span>&lt;&lt;<span class="number">20</span>));</span><br><span class="line">                <span class="built_in">printf</span> (<span class="string">&quot;got %d MiB\n&quot;</span>, ++n);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中 demo1 在malloc返回NULL前，将申请到很大的内存；demo2 在malloc返回NULL前，将申请到很小的内存。在一个内存8MiB的系统中，demo1 将申请到 274 MiB内存， demo2将申请到仅4MiB内存。</p>
+<p>2.3 查看内存使用</p>
+<p>free: 查看操作系统内存使用，包含目前的 Buffer，Cache 和 Swap 使用量</p>
+<p>top: 查看进程内存，cpu使用等</p>
+<p>/proc/[pid]/status: 该文件提供了进程的内存使用信息。VmPeak指，从进程启动到现在使用的虚拟内存最大值；VmSize指，当前该进程的虚拟内存使用量；VmHWM指，从进程启动到当前使用的物理内存最大值，对估计进程实际内存使用有很大帮助；VmRSS指，当前进程的物理内存使用量。例子如下：<br />
+<img src="/images/java/1.png" alt="图片" /></p>
+<p>/proc/[pid]/mem: 通过该文件，可以像操作文件一样，操作进程的虚拟内存内容，如：读，写操作。可以直接修改这个文件的内容，来直接修改某个进程中的某个变量的内容。用一个简单的 Python 程序，我们就可以实现修改进程内存内容的”魔法“，具体可参考：<a target="_blank" rel="noopener" href="https://blog.holbertonschool.com/hack-the-virtual-memory-c-strings-proc/">https://blog.holbertonschool.com/hack-the-virtual-memory-c-strings-proc/</a> 。</p>
+<p>/proc/[pid]/maps: 进程的虚拟内存地址分布<br />
+<img src="/images/java/2.png" alt="图片" /></p>
+<h3 id="三-java-进程内存分布"><a class="markdownIt-Anchor" href="#三-java-进程内存分布"></a> 三、Java 进程内存分布</h3>
+<p>Native Memory Tracking 是Java7U40引入的HotSpot新特性，可以用于追踪 Java 进程内存使用，并可以通过jcmd命令来访问。NMT功能默认关闭，可以通过设置JVM参数 -XX:NativeMemoryTracking=[summary | detail]来打开。值得注意的是，NMT 只能Track JVM自身的内存分配，第三方的Native库内存使用无法Track；NMT 有5%-10%的性能开销。</p>
+<p><img src="/images/java/3.png" alt="图片" /></p>
+<p>上图是 NMT 的输出例子，可以看到NMT不仅能 Track 堆内存的内存使用，还能Track其他部分的内存使用，如：Class，Code，Compiler，Internal，Symbol等部分的内存使用。其中committed可以认为是物理内存使用，即RSS。下面将对各部分进行分析。</p>
+<p>3.1 Heap</p>
+<p>Heap 是 Java 进程中使用量最大的一部分内存，是最常遇到内存问题的部分，Java 也提供了很多相关工具来排查堆内存泄露问题，这里不详细展开。Heap 与 RSS 相关的几个重要JVM 参数如下：</p>
+<p>Xms：Java Heap 初始内存大小。【不是最小的Heap size】</p>
+<p>Xmx：Java Heap 的最大大小。</p>
+<p>XX:+AlwaysPretouch:在JVM初始化时，是否直接对Heap部分内存进行”填零“。正如上文所说，进程启动的时候,虽然我们可以为JVM指定合适的内存大小,但是这些内存操作系统并没有真正的分配给JVM,而是等JVM访问这些内存的时候,才真正分配。通过配置这个参数JVM就会先访问所有分配给它的内存,让操作系统把内存真正的分配给JVM.从而提高运行时的性能，后续JVM就可以更好的访问内存了。</p>
+<p>XX:+UseAdaptiveSizePolicy：是否开启自适应大小策略。开启后，JVM将动态判断是否调整Heap size，来降低系统负载。</p>
+<p>3.2 Metaspace</p>
+<p>Metaspace 主要包含方法的字节码，Class对象，常量池。一般来说，记载的类越多，Metaspace 使用的内存越多。与Metaspace相关的JVM参数有:</p>
+<p>XX:MaxMetaspaceSize: 最大的Metaspace大小限制【默认无限制】</p>
+<p>XX:MetaspaceSize=64M: 初始的Metaspace大小。如果Metaspace空间不足，将会触发Full gc，例子如下图：</p>
+<p><img src="/images/java/4.png" alt="图片" /></p>
+<p>3.3 Thread</p>
+<p>NMT 中显示的Thread 部分内存与线程数与-Xss参数成正比，一般来说committed内存等于Xss*线程数。下图中显示有38个线程，committed内存大约为38M，从这可以推断出该Java 进程的Xss参数值为1M。</p>
+<p><img src="/images/java/5.png" alt="图片" /></p>
+<p>然而比较幸运的是，NMT 中Thread 的committed内存，并不等于 Java 线程的实际内存使用，具体可以参考：</p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/31173374/why-does-a-jvm-report-more-committed-memory-than-the-linux-process-resident-set">https://stackoverflow.com/questions/31173374/why-does-a-jvm-report-more-committed-memory-than-the-linux-process-resident-set</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/apangin/jstackmem/blob/master/jstackmem.py">https://github.com/apangin/jstackmem/blob/master/jstackmem.py</a></p>
+<p>NMT 中Thread部分实际物理内存使用，大致可以用下图描述：</p>
+<p><img src="/images/java/6.png" alt="图片" /></p>
+<p>3.4 Code<br />
+JIT 动态编译产生的Code占用的内存。这部分内存主要由-XX:ReservedCodeCacheSize参数进行控制，默认是：240M。可以通过关闭分层编译-XX:-TieredCompilation来减低Code Cache部分的内存使用。另外，-XX:+PrintCodeCache参数，可以打印出Code Cache相关的详细信息，帮助我们定位内存泄露问题，打印信息如下：</p>
+<p><img src="/images/java/7.png" alt="图片" /></p>
+<p>3.5 Internal<br />
+Internal 部分内存主要是java.nio.DirectByteBuffer对象占用。java.nio.DirectByteBuffer是’冰山对象‘，Heap中有堆外内存的引用,heap内的引用对象内存占用很小，实际的内存使用不在heap上，而是通过Unsafe.allocate进行分配的。查看java.nio.DirectByteBuffer的内存使用，有两个方法：</p>
+<p>通过NMT输出日志，查看Internal部分的committed内存 和 Unsafe调用分配内存：</p>
+<p><img src="/images/java/8.png" alt="图片" /></p>
+<p>MAT分析Heap中java.nio.Bits类中totalCapcity：</p>
+<p><img src="/images/java/9.png" alt="图片" /></p>
+<p>具体原理，可以参考之前的一个回答：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/58943470/answer/1130876729">https://www.zhihu.com/question/58943470/answer/1130876729</a></p>
+<p>3.6 Symbol<br />
+Symbol 部分主要有两部分：</p>
+<p>SymbolTable: names signatures</p>
+<p>StringTable: interned strings可以通过-XX:+PrintStringTableStatistics打印具体的信息，输入大致如下：</p>
+<p><img src="/images/java/10.png" alt="图片" /></p>
+<p>3.7 小结<br />
+1、为什么 Java 进程的实际物理内存使用量比 -Xmx 指定的 Max Heap size 大？</p>
+<p>答：有堆外内存，如：Code，Metaspace，Class，Thread，Internal等其他的内存消耗部分。</p>
+<p>2、为什么 Java NMT 显示的 committed 内存值比RSS值小(或者大)？</p>
+<p>答：一般情况下NMT Track出来的 committed 内存值既可能比RSS值大，也可能比RSS小，主要原因是：</p>
+<p>比真实RSS小：NMT 只能Track JVM自身的内存分配情况，比如：Heap内存分配，direct byte buffer等；不能 Track jni里直接调用malloc时的内存分配，这里最典型的就是ZipInputStream的场景。</p>
+<p>比真实RSS大：NMT 中关于Thread的部分的 committed 部分内存，基本等于-Xss值 * Thread数量，并没有反映Java Thread Stack真实对应到RSS的内存值。（可能是JVM的bug？）考虑到操作系统内存的懒加载机制，单个Thread Stack实际RSS使用基本在100k左右。详细信息可参考：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/31173374/why-does-a-jvm-report-more-committed-memory-than-the-linux-process-resident-set%E3%80%82%E7%AE%80%E5%8D%95%E7%9A%84%E8%AF%B4%EF%BC%8C%E5%B0%B1%E6%98%AF%E4%BB%8ENMT%E4%B8%8A%E7%9C%8B%E5%88%B0%E7%9A%84Thread">https://stackoverflow.com/questions/31173374/why-does-a-jvm-report-more-committed-memory-than-the-linux-process-resident-set。简单的说，就是从NMT上看到的Thread</a> committed内存是大于Thread的实际Rss值的。</p>
+<p>3、是否有办法能限制一个 Java 进程的内存使用么？</p>
+<p>答：没有。Java 有很多无法限制的部分，如：Metaspace，Thread，第三方Native调用等。</p>
+<h3 id="四-怎么排查"><a class="markdownIt-Anchor" href="#四-怎么排查"></a> 四、怎么排查</h3>
+<p>4.1 大致流程<br />
+<img src="/images/java/11.png" alt="图片" /></p>
+<p>4.2 Java<br />
+jmap: dump heap dump；分析heap</p>
+<p>jcmd: NMT 分析</p>
+<p>jinfo：查看进程启动命令，确定各JVM参数的配置值</p>
+<p>MAT: 分析Heap</p>
+<p>NMT: 分析具体Java 进程的各部分内存分布，包含堆外内存</p>
+<p>…</p>
+<p>4.3 系统级别</p>
+<p>pmap：追踪“可疑”内存</p>
+<p>strace：追踪系统调用</p>
+<p>gdb: dump “可疑”内存内容，帮助分析内存泄露问题</p>
+<p>五、Example<br />
+<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/54048271">https://zhuanlan.zhihu.com/p/54048271</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/60976273">https://zhuanlan.zhihu.com/p/60976273</a></p>
+<p>六、参考<br />
+Difference with Linux VmRSS and the total commited memory of Java NativeMemoryTraking (NMT)：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/58430156/difference-with-linux-vmrss-and-the-total-commited-memory-of-java-nativememorytr">https://stackoverflow.com/questions/58430156/difference-with-linux-vmrss-and-the-total-commited-memory-of-java-nativememorytr</a></p>
+<p>如何用async-profiler profile 堆外内存：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/53576163/interpreting-jemaloc-data-possible-off-heap-leak/53598622#53598622">https://stackoverflow.com/questions/53576163/interpreting-jemaloc-data-possible-off-heap-leak/53598622#53598622</a></p>
+<p>Memory Footprint of A Java Process: <a target="_blank" rel="noopener" href="https://vimeo.com/364039638">https://vimeo.com/364039638</a></p>
+<p>Why does a JVM report more committed memory than the linux process resident set size?: <a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/31173374/why-does-a-jvm-report-more-committed-memory-than-the-linux-process-resident-set">https://stackoverflow.com/questions/31173374/why-does-a-jvm-report-more-committed-memory-than-the-linux-process-resident-set</a></p>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="https://marklinglon.github.io/2021/01/21/java-memory/" title="Java 内存" target="_blank" rel="external">https://marklinglon.github.io/2021/01/21/java-memory/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/cofess" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/cofess" target="_blank"><span class="text-dark">Amos</span><small class="ml-1x">Web Developer &amp; Operation &amp; Devops &amp; SRE</small></a></h3>
+        <div>个人简介。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2021/01/21/hexo/" title="hexo部署文档"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2021/01/21/redis/" title="Redis常见问题"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '',
+    appKey: '',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
