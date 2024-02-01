@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>标签: 整数反转 | Hexo</title>
+  <meta property="og:type" content="website">
+<meta property="og:title" content="汪茫人海">
+<meta property="og:url" content="https://marklinglon.github.io/tags/%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC/index.html">
+<meta property="og:site_name" content="汪茫人海">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="mark long">
+<meta name="twitter:card" content="summary">
+  <!-- Canonical links -->
+  <link rel="canonical" href="https://marklinglon.github.io/tags/%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="汪茫人海" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="https://github.com/cofess" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">Amos</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">Web Developer &amp; Operation &amp; Devops &amp; SRE</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Shanghai, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-repository">
+          <a href="/repository">
+            
+            <i class="icon icon-project"></i>
+            
+            <span class="menu-title">项目</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-books">
+          <a href="/books">
+            
+            <i class="icon icon-book-fill"></i>
+            
+            <span class="menu-title">书单</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CICD/">CICD</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/K8s/">K8s</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/mianshiti/">mianshiti</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%B8%AD%E9%97%B4%E4%BB%B6/">中间件</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%9B%91%E6%8E%A7/">监控</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-list-count">21</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%AD%E8%A8%80/">语言</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/K%E4%B8%AA%E4%B8%80%E7%BB%84%E5%8F%8D%E8%BD%AC%E5%88%97%E8%A1%A8/" rel="tag">K个一组反转列表</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" rel="tag">LRU缓存机制</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elastic/" rel="tag">elastic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gitops/" rel="tag">gitops</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gpt/" rel="tag">gpt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jumpserer/" rel="tag">jumpserer</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/k8s/" rel="tag">k8s</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/keypass/" rel="tag">keypass</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/redis/" rel="tag">redis</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%8D%E5%90%ABAAA%E6%88%96BBB%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">不含AAA或BBB的字符串</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/" rel="tag">二叉树的最近公共祖先</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%94%AF%E9%BD%BF%E5%9E%8B%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" rel="tag">二叉树的锯齿型层次遍历</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/" rel="tag">合并区间</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%9B%E6%95%B0%E7%BB%84%E7%9B%B8%E5%8A%A0II/" rel="tag">四数组相加II</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%90%E9%9B%86/" rel="tag">子集</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E7%A0%81/" rel="tag">字符串解码</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag">对称二叉树</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84-%E7%BB%84%E5%90%88/" rel="tag">数组 组合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0/" rel="tag">数组中的第K个最大元素</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC/" rel="tag">整数反转</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/" rel="tag">旋转排序数组</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/" rel="tag">最大正方形</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%80%E5%B0%8F%E6%95%B0/" rel="tag">最小数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%88-%E9%98%9F%E5%88%97/" rel="tag">栈 队列</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%A0%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E7%BB%93%E7%82%B9%E7%9A%84%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/" rel="tag">根到叶子结点的数字之和</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%82%E5%92%8C/" rel="tag">求和</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97%E8%BD%AC%E6%95%B4%E6%95%B0/" rel="tag">罗马数字转整数</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C/" rel="tag">路径总和</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/K%E4%B8%AA%E4%B8%80%E7%BB%84%E5%8F%8D%E8%BD%AC%E5%88%97%E8%A1%A8/" style="font-size: 13px;">K个一组反转列表</a> <a href="/tags/LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" style="font-size: 13px;">LRU缓存机制</a> <a href="/tags/elastic/" style="font-size: 13px;">elastic</a> <a href="/tags/gitops/" style="font-size: 13.5px;">gitops</a> <a href="/tags/gpt/" style="font-size: 13px;">gpt</a> <a href="/tags/hexo/" style="font-size: 13px;">hexo</a> <a href="/tags/java/" style="font-size: 13px;">java</a> <a href="/tags/jumpserer/" style="font-size: 13px;">jumpserer</a> <a href="/tags/k8s/" style="font-size: 14px;">k8s</a> <a href="/tags/keypass/" style="font-size: 13px;">keypass</a> <a href="/tags/redis/" style="font-size: 13.5px;">redis</a> <a href="/tags/%E4%B8%8D%E5%90%ABAAA%E6%88%96BBB%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/" style="font-size: 13px;">不含AAA或BBB的字符串</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/" style="font-size: 13px;">二叉树的最近公共祖先</a> <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%94%AF%E9%BD%BF%E5%9E%8B%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86/" style="font-size: 13px;">二叉树的锯齿型层次遍历</a> <a href="/tags/%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/" style="font-size: 13px;">合并区间</a> <a href="/tags/%E5%9B%9B%E6%95%B0%E7%BB%84%E7%9B%B8%E5%8A%A0II/" style="font-size: 13px;">四数组相加II</a> <a href="/tags/%E5%AD%90%E9%9B%86/" style="font-size: 13px;">子集</a> <a href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E7%A0%81/" style="font-size: 13px;">字符串解码</a> <a href="/tags/%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91/" style="font-size: 13px;">对称二叉树</a> <a href="/tags/%E6%95%B0%E7%BB%84-%E7%BB%84%E5%90%88/" style="font-size: 13px;">数组 组合</a> <a href="/tags/%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0/" style="font-size: 13px;">数组中的第K个最大元素</a> <a href="/tags/%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC/" style="font-size: 13px;">整数反转</a> <a href="/tags/%E6%97%8B%E8%BD%AC%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84/" style="font-size: 13px;">旋转排序数组</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/" style="font-size: 13px;">最大正方形</a> <a href="/tags/%E6%9C%80%E5%B0%8F%E6%95%B0/" style="font-size: 13px;">最小数</a> <a href="/tags/%E6%A0%88-%E9%98%9F%E5%88%97/" style="font-size: 13px;">栈 队列</a> <a href="/tags/%E6%A0%B9%E5%88%B0%E5%8F%B6%E5%AD%90%E7%BB%93%E7%82%B9%E7%9A%84%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/" style="font-size: 13px;">根到叶子结点的数字之和</a> <a href="/tags/%E6%B1%82%E5%92%8C/" style="font-size: 13px;">求和</a> <a href="/tags/%E7%BD%97%E9%A9%AC%E6%95%B0%E5%AD%97%E8%BD%AC%E6%95%B4%E6%95%B0/" style="font-size: 13px;">罗马数字转整数</a> <a href="/tags/%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8C/" style="font-size: 13px;">路径总和</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/">二月 2024</a><span class="archive-list-count">21</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">一月 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">六月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/02/01/%E7%AE%97%E6%B3%95/K%E4%B8%AA%E4%B8%80%E7%BB%84%E5%8F%8D%E8%BD%AC%E5%88%97%E8%A1%A8/" class="title">K个一组反转列表</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-01-31T16:00:00.000Z" itemprop="datePublished">2024-02-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/02/01/%E7%AE%97%E6%B3%95/LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" class="title">LRU缓存机制</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-01-31T16:00:00.000Z" itemprop="datePublished">2024-02-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/02/01/%E7%AE%97%E6%B3%95/minInt/" class="title">求最小数</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-01-31T16:00:00.000Z" itemprop="datePublished">2024-02-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/02/01/%E7%AE%97%E6%B3%95/xzList/" class="title">搜索旋转排序数组</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-01-31T16:00:00.000Z" itemprop="datePublished">2024-02-01</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+              </p>
+              <p class="item-title">
+                <a href="/2024/02/01/%E7%AE%97%E6%B3%95/zhanQueue/" class="title">用栈实现队列</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2024-01-31T16:00:00.000Z" itemprop="datePublished">2024-02-01</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  <main class="main" role="main">
+  <article class="content article article-tags post-type-list" itemscope="">
+    <header class="article-header">
+      <h1 itemprop="name" class="hidden-xs">标签: 整数反转</h1>
+      <p class="text-muted hidden-xs">共 1 篇文章</p>
+      <nav role="navigation" id="nav-main" class="okayNav">
+        <ul>
+          <li><a href="/tags">All</a></li>
+          
+          <li><a href="/tags/k8s/">k8s</a></li>
+          
+          <li><a href="/tags/gitops/">gitops</a></li>
+          
+          <li><a href="/tags/elastic/">elastic</a></li>
+          
+          <li><a href="/tags/redis/">redis</a></li>
+          
+          <li><a href="/tags/hexo/">hexo</a></li>
+          
+          <li><a href="/tags/jumpserer/">jumpserer</a></li>
+          
+          <li><a href="/tags/keypass/">keypass</a></li>
+          
+          <li><a href="/tags/gpt/">gpt</a></li>
+          
+          <li><a href="/tags/java/">java</a></li>
+          
+          <li><a href="/tags/K个一组反转列表/">K个一组反转列表</a></li>
+          
+          <li><a href="/tags/LRU缓存机制/">LRU缓存机制</a></li>
+          
+          <li><a href="/tags/最小数/">最小数</a></li>
+          
+          <li><a href="/tags/旋转排序数组/">旋转排序数组</a></li>
+          
+          <li><a href="/tags/栈-队列/">栈 队列</a></li>
+          
+          <li><a href="/tags/不含AAA或BBB的字符串/">不含AAA或BBB的字符串</a></li>
+          
+          <li><a href="/tags/二叉树的最近公共祖先/">二叉树的最近公共祖先</a></li>
+          
+          <li><a href="/tags/二叉树的锯齿型层次遍历/">二叉树的锯齿型层次遍历</a></li>
+          
+          <li><a href="/tags/合并区间/">合并区间</a></li>
+          
+          <li><a href="/tags/四数组相加II/">四数组相加II</a></li>
+          
+          <li><a href="/tags/子集/">子集</a></li>
+          
+          <li><a href="/tags/字符串解码/">字符串解码</a></li>
+          
+          <li><a href="/tags/对称二叉树/">对称二叉树</a></li>
+          
+          <li><a href="/tags/数组中的第K个最大元素/">数组中的第K个最大元素</a></li>
+          
+          <li><a href="/tags/求和/">求和</a></li>
+          
+          <li><a href="/tags/整数反转/">整数反转</a></li>
+          
+          <li><a href="/tags/最大正方形/">最大正方形</a></li>
+          
+          <li><a href="/tags/根到叶子结点的数字之和/">根到叶子结点的数字之和</a></li>
+          
+          <li><a href="/tags/数组-组合/">数组 组合</a></li>
+          
+          <li><a href="/tags/罗马数字转整数/">罗马数字转整数</a></li>
+          
+          <li><a href="/tags/路径总和/">路径总和</a></li>
+          
+        </ul>
+      </nav>
+    </header>
+    <!-- /header -->
+    <div class="article-body">
+      <div class="row">
+        
+<div class="col-md-6">
+    
+<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="panel-body">
+     <div class="article-meta">
+       <time datetime="2024-01-31T16:00:00.000Z" itemprop="datePublished">2024-02-01</time>
+     </div>
+     <h3 class="article-title" itemprop="name">
+       <a class="article-link" href="/2024/02/01/%E7%AE%97%E6%B3%95/%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC/">整数反转</a>
+     </h3>
+   </div>
+   
+   <div class="panel-footer">
+     
+      <a href="/tags/%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC/" class="label label-default mb">整数反转</a>
+     
+     
+   </div>
+   
+</article>
+
+
+</div>
+
+      </div>
+    </div>
+  </article>
+   
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	
+	
+    <ul class="social-links">
+    	
+        <li><a href="https://github.com/cofess" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://weibo.com/cofess" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="https://twitter.com/iwebued" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="https://www.behance.net/cofess" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
