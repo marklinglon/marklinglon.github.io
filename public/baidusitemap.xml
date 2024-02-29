@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://marklinglon.github.io/2021/06/21/docker/%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B/</loc>
+    <lastmod>2024-02-29</lastmod>
+  </url>
+  <url>
     <loc>https://marklinglon.github.io/2022/03/21/k8s/share/</loc>
     <lastmod>2024-02-01</lastmod>
   </url>
