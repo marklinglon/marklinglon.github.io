@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://marklinglon.github.io/2020/06/21/k8s/promql/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  <url>
+    <loc>https://marklinglon.github.io/2021/01/21/%E4%B8%AD%E9%97%B4%E4%BB%B6/redis%E9%9B%86%E7%BE%A4/</loc>
+    <lastmod>2024-03-06</lastmod>
+  </url>
+  <url>
     <loc>https://marklinglon.github.io/2021/06/21/docker/%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B/</loc>
     <lastmod>2024-02-29</lastmod>
   </url>
